@@ -22,7 +22,7 @@ const frames = [
   "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
 ];
 
-const FramePage = () => {
+const FrameSelectPage = () => {
   return (
     <BackGround>
       <Main>
@@ -62,7 +62,7 @@ const FramePage = () => {
   );
 };
 
-export default FramePage;
+export default FrameSelectPage;
 
 const BackGround = styled.div`
   width: 1871px;
