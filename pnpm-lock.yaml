@@ -20,6 +20,9 @@ dependencies:
   '@tanstack/react-query-devtools':
     specifier: ^4.36.1
     version: 4.36.1(@tanstack/react-query@4.36.1)(react-dom@18.2.0)(react@18.2.0)
+  '@toss/react':
+    specifier: ^1.5.0
+    version: 1.5.0(react@18.2.0)
   axios:
     specifier: ^1.5.1
     version: 1.5.1
@@ -366,6 +369,33 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
+  /@toss/react@1.5.0(react@18.2.0):
+    resolution: {integrity: sha512-u1mjswd8a1GJxpItddeU8rbpg3vyppityHqdIHQhy84w4NLLE73q4LFr3a3F5X9oUDNIEjSWfe1qaJ4Z57E+aQ==}
+    peerDependencies:
+      react: ^16.0.0 || ^17.0.0 || ^18
+    dependencies:
+      '@babel/runtime': 7.23.1
+      '@toss/storage': 1.3.0
+      '@toss/utils': 1.4.4
+      classnames: 2.3.2
+      lodash.debounce: 4.0.8
+      lodash.throttle: 4.1.1
+      react: 18.2.0
+    dev: false
+
+  /@toss/storage@1.3.0:
+    resolution: {integrity: sha512-9xSwlICHbA1Ibm4Hp+WJZMkwUsW4mMX4QRGNklwE45xxQxQako1svIflPrugxaOZXnLygkb8nYYBaRtICzwoaw==}
+    dependencies:
+      '@babel/runtime': 7.23.1
+    dev: false
+
+  /@toss/utils@1.4.4:
+    resolution: {integrity: sha512-g8/hEabUmWWed6eTTwI3OJ7ZDZtATjAcs4A1qqfF8TKrYMul5pZWsWkIeeVRMWJfTuvTKMP2QZrB+51bMO1p2w==}
+    dependencies:
+      '@babel/runtime': 7.23.1
+      date-fns: 2.30.0
+    dev: false
+
   /@types/node@20.8.4:
     resolution: {integrity: sha512-ZVPnqU58giiCjSxjVUESDtdPk4QR5WQhhINbc9UBrKLU68MX5BF6kbQzTrkwbolyr0X8ChBpXfavr5mZFKZQ5A==}
     dependencies:
@@ -450,6 +480,10 @@ packages:
       supports-color: 5.5.0
     dev: false
 
+  /classnames@2.3.2:
+    resolution: {integrity: sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==}
+    dev: false
+
   /client-only@0.0.1:
     resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
     dev: false
@@ -495,6 +529,13 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
+
+  /date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.23.1
+    dev: false
 
   /delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -601,6 +642,14 @@ packages:
 
   /lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
+    dev: false
+
+  /lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+    dev: false
+
+  /lodash.throttle@4.1.1:
+    resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
     dev: false
 
   /loose-envify@1.4.0:
