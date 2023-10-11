@@ -1,3 +1,4 @@
+import QueryClientProvider from "@/hooks/QueryClientProvider";
 import { GlobalStyle } from "@/styles/global";
 import { Html, Head, Main, NextScript } from "next/document";
 
@@ -6,9 +7,11 @@ const Document = () => {
     <Html lang="en">
       <Head />
       <body>
-        <GlobalStyle />
-        <Main />
-        <NextScript />
+        <QueryClientProvider>
+          <GlobalStyle />
+          <Main />
+          <NextScript />
+        </QueryClientProvider>
       </body>
     </Html>
   );
