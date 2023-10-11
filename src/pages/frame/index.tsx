@@ -3,21 +3,11 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
+import { useState } from "react";
 
-const categoryTags = [
-  {
-    title: "장소",
-    tags: ["바다", "산", "놀이공원", "시내"],
-  },
-  {
-    title: "감정",
-    tags: ["행복", "즐거움", "감동", "반가움", "사랑"],
-  },
-  {
-    title: "컨셉",
-    tags: ["일러스트", "사진"],
-  },
-];
+const locationTags = ["바다", "산", "놀이공원", "시내"];
+
+const emotinoTags = ["행복", "즐거움", "감동", "반가움", "사랑"];
 
 const colors = [
   {
@@ -55,27 +45,93 @@ const colors = [
 ];
 
 const FramePage = () => {
+  const [location, setLocation] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const [emotion, setEmotion] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const [isPicture, setIsPicture] = useState<boolean>(false);
+
+  const [selectColor, setSelectColor] = useState<string>("");
+
+  const submitTags = () => {
+    const locationList = locationTags.filter((v, i) => location[i]).join(", ");
+    const emotionList = emotinoTags.filter((v, i) => emotion[i]).join("과 ");
+    const concept = isPicture ? "사진" : "일러스트";
+    const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
+    console.log(sentence);
+  };
+
   return (
     <BackGround>
       <Main>
         <Frame />
         <Contents>
           <Title>태그 선택</Title>
-          {categoryTags.map((category) => (
-            <Section>
-              <SectionTitle>{category.title}</SectionTitle>
-              <Tags>
-                {category.tags.map((tag) => (
-                  <Tag>{tag}</Tag>
-                ))}
-              </Tags>
-            </Section>
-          ))}
+          <Section>
+            <SectionTitle>장소</SectionTitle>
+            <Tags>
+              {locationTags.map((tag, i) => (
+                <Tag
+                  key={i}
+                  onClick={() => {
+                    let newArr = [...location];
+                    newArr[i] = !newArr[i];
+                    setLocation(newArr);
+                  }}
+                  isSelect={location[i]}
+                >
+                  {tag}
+                </Tag>
+              ))}
+            </Tags>
+          </Section>
+          <Section>
+            <SectionTitle>감정</SectionTitle>
+            <Tags>
+              {emotinoTags.map((tag, i) => (
+                <Tag
+                  key={i}
+                  onClick={() => {
+                    let newArr = [...emotion];
+                    newArr[i] = !newArr[i];
+                    setEmotion(newArr);
+                  }}
+                  isSelect={emotion[i]}
+                >
+                  {tag}
+                </Tag>
+              ))}
+            </Tags>
+          </Section>
+          <Section>
+            <SectionTitle>컨셉</SectionTitle>
+            <Tags>
+              <Tag onClick={() => setIsPicture(false)} isSelect={!isPicture}>
+                일러스트
+              </Tag>
+              <Tag onClick={() => setIsPicture(true)} isSelect={isPicture}>
+                사진
+              </Tag>
+            </Tags>
+          </Section>
           <Section>
             <SectionTitle>색상</SectionTitle>
             <Colors>
               {colors.map((color) => (
                 <Color
+                  onClick={() => setSelectColor(color.name)}
+                  isSelect={color.name === selectColor}
                   css={
                     color.name === "white" &&
                     css`
@@ -171,7 +227,7 @@ const Tags = styled.div`
   gap: 10px;
 `;
 
-const Tag = styled.button`
+const Tag = styled.button<{ isSelect: boolean }>`
   @font-face {
     font-family: "GmarketSansMedium";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
@@ -186,19 +242,25 @@ const Tag = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  border: 2px solid #aaa;
+  border: 2px solid ${({ isSelect }) => !isSelect && "#aaa"};
+  background-color: ${({ isSelect }) => (isSelect ? "#F76687" : "#ffffff")};
+  transition: ease-in-out 0.1s;
 
-  color: #676767;
+  color: ${({ isSelect }) => (isSelect ? "#ffffff" : "#676767")};
   font-size: 32px;
   font-weight: 500;
   letter-spacing: -1.6px;
 `;
 
-const Color = styled.button<{ color: string }>`
+const Color = styled.button<{ color: string; isSelect: boolean }>`
   width: 80px;
   height: 80px;
   border-radius: 20px;
   background-color: ${({ color }) => color};
+  transition: ease-in-out 0.1s;
+  ${({ isSelect, color }) =>
+    isSelect &&
+    "box-shadow: 0 0 10px 5px " + (color === "#ffffff" ? "gray" : color)};
 `;
 
 const Colors = styled.div`
