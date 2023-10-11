@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import styled from "@emotion/styled";
 import { Animals, Logo, Camera } from "@/assets";
 import Image from "next/image";

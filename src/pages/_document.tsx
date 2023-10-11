@@ -25,6 +25,7 @@ const RectangleWrapper = styled.div`
   height: 1080px;
   position: absolute;
   overflow: hidden;
+  z-index: -1;
 
   img {
     object-fit: cover;
@@ -33,4 +34,5 @@ const RectangleWrapper = styled.div`
 
 const Body = styled.body`
   overflow-y: hidden;
+  display: flex;
 `;
