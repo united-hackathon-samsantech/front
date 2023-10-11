@@ -18,7 +18,9 @@ type PhotoBoothStep =
   | "완료";
 
 const Home = () => {
-  const [photoBoothStep, setPhotoBoothStep] = useState<PhotoBoothStep>("메인");
+  const [photoBoothStep, setPhotoBoothStep] =
+    useState<PhotoBoothStep>("사진촬영");
+
   return (
     <SwitchCase
       value={photoBoothStep}
