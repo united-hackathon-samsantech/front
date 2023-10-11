@@ -56,6 +56,9 @@ const FramePage = () => {
           </Section>
         </Contents>
       </Main>
+      <LogoWrapper>
+        <Image src="/Logo.png" alt="logo" fill />
+      </LogoWrapper>
     </BackGround>
   );
 };
@@ -162,4 +165,12 @@ const Color = styled.button<{ color: string }>`
 const Colors = styled.div`
   display: flex;
   gap: 12px;
+`;
+
+const LogoWrapper = styled.div`
+  width: 322px;
+  height: 145px;
+  position: absolute;
+  bottom: 50px;
+  right: 54px;
 `;
