@@ -9,8 +9,6 @@ const locationTags = ["바다", "산", "놀이공원", "시내"];
 
 const emotinoTags = ["행복", "즐거움", "감동", "반가움", "사랑"];
 
-const conceptTags = ["일러스트", "사진"];
-
 const colors = [
   {
     name: "red",
@@ -62,9 +60,17 @@ const FramePage = () => {
     false,
   ]);
 
-  const [concept, setConcept] = useState<"illustration" | "picture" | "">("");
+  const [isPicture, setIsPicture] = useState<boolean>(false);
 
   const [selectColor, setSelectColor] = useState<string>("");
+
+  const submitTags = () => {
+    const locationList = locationTags.filter((v, i) => location[i]).join(", ");
+    const emotionList = emotinoTags.filter((v, i) => emotion[i]).join("과 ");
+    const concept = isPicture ? "사진" : "일러스트";
+    const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
+    console.log(sentence);
+  };
 
   return (
     <BackGround>
@@ -111,16 +117,10 @@ const FramePage = () => {
           <Section>
             <SectionTitle>컨셉</SectionTitle>
             <Tags>
-              <Tag
-                onClick={() => setConcept("illustration")}
-                isSelect={concept === "illustration"}
-              >
+              <Tag onClick={() => setIsPicture(false)} isSelect={!isPicture}>
                 일러스트
               </Tag>
-              <Tag
-                onClick={() => setConcept("picture")}
-                isSelect={concept === "picture"}
-              >
+              <Tag onClick={() => setIsPicture(true)} isSelect={isPicture}>
                 사진
               </Tag>
             </Tags>
@@ -144,6 +144,7 @@ const FramePage = () => {
             </Colors>
           </Section>
         </Contents>
+        <button onClick={submitTags}>튼튼</button>
       </Main>
     </BackGround>
   );
