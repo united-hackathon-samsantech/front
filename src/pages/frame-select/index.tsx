@@ -3,6 +3,7 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
+import { Logo } from "@/components";
 
 const colors = [
   {
@@ -56,6 +57,7 @@ const FramePage = () => {
           </Section>
         </Contents>
       </Main>
+      <Logo />
     </BackGround>
   );
 };
