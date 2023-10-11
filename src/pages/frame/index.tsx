@@ -100,6 +100,7 @@ const FramePage = () => {
             <Colors>
               {colors.map((color) => (
                 <Color
+                  onClick={() => setSelectColor(color.name)}
                   isSelect={color.name === selectColor}
                   css={
                     color.name === "white" &&
@@ -224,6 +225,10 @@ const Color = styled.button<{ color: string; isSelect: boolean }>`
   height: 80px;
   border-radius: 20px;
   background-color: ${({ color }) => color};
+  transition: ease-in-out 0.15s;
+  ${({ isSelect, color }) =>
+    isSelect &&
+    "box-shadow: 0 0 10px 5px " + (color === "#ffffff" ? "gray" : color)};
 `;
 
 const Colors = styled.div`
