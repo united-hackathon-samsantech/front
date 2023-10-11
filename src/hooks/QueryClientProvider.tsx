@@ -4,6 +4,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ReactNode, useState } from "react";
+import { RecoilRoot } from "recoil";
 
 interface QueryClientProviderProps {
   children: ReactNode;
