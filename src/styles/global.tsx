@@ -4,8 +4,7 @@ import { ResetCSS } from "./reset";
 
 const globalStyle = css`
   * {
-    line-height: normal;
-
+    line-height: 140%;
     box-sizing: border-box;
   }
 
