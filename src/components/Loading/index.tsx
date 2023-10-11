@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Rabit } from "@/assets";
 import Image from "next/image";
+import { Logo } from "@/components";
 
 const Loading = () => {
   return (
@@ -11,6 +12,7 @@ const Loading = () => {
           AI 지니가 프레임을 생성중이에요 잠시만 기다려주세요
         </LoadingText>
       </ContentWrapper>
+      <Logo />
     </BackGround>
   );
 };
