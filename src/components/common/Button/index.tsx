@@ -29,9 +29,9 @@ const StyledButton = styled.button<{ disabled: boolean }>`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 20px;
-  border-radius: 25px;
-  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
   background-color: ${({ disabled }) => (disabled ? "#C6C6C6" : "#F76687")};

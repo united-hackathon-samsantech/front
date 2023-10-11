@@ -1,5 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import styled from "@emotion/styled";
+import Image from "next/image";
+import { Rectangle } from "@/assets";
 
 const Document = () => {
   return (
