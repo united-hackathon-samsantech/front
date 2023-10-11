@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { useRef } from "react";
 import Webcam from "react-webcam";
 import Button from "../common/Button";
+import Header from "../common/Header";
 
 interface CapturePhotoProps extends FunnelStep {}
 
@@ -22,6 +23,13 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
 
   return (
     <StyledCapturePhoto>
+      <Header
+        title="원하는 포즈를 선택하세요"
+        prevBtnText="돌아가기"
+        nextBtnText="선택완료"
+        prevStep={prevStep}
+        nextStep={nextStep}
+      />
       <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" />
       <Button icon="next">돌아가기</Button>
       <StyledPhotoCaptureButton onClick={hanldePhotoCaptureButtonClick}>
