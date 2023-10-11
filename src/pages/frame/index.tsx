@@ -144,7 +144,6 @@ const FramePage = () => {
             </Colors>
           </Section>
         </Contents>
-        <button onClick={submitTags}>튼튼</button>
       </Main>
     </BackGround>
   );
