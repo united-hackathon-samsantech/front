@@ -4,54 +4,21 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
-const categoryTags = [
+const colors = [
   {
-    title: "장소",
-    tags: ["바다", "산", "놀이공원", "시내"],
+    color: "#000000",
+    name: "black",
   },
   {
-    title: "감정",
-    tags: ["행복", "즐거움", "감동", "반가움", "사랑"],
-  },
-  {
-    title: "컨셉",
-    tags: ["일러스트", "사진"],
+    color: "#ffffff",
+    name: "white",
   },
 ];
 
-const colors = [
-  {
-    name: "red",
-    color: "#F54141",
-  },
-  {
-    name: "yellow",
-    color: "#FFCA0E",
-  },
-  {
-    name: "green",
-    color: "#55C720",
-  },
-  {
-    name: "blue",
-    color: "#1589F3",
-  },
-  {
-    name: "pupple",
-    color: "#6F3DFF",
-  },
-  {
-    name: "pink",
-    color: "#F773DA",
-  },
-  {
-    name: "black",
-    color: "#000000",
-  },
-  {
-    name: "white",
-    color: "#ffffff",
-  },
+const frames = [
+  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
+  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
+  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
 ];
 
 const FramePage = () => {
@@ -60,19 +27,19 @@ const FramePage = () => {
       <Main>
         <Frame />
         <Contents>
-          <Title>태그 선택</Title>
-          {categoryTags.map((category) => (
-            <Section>
-              <SectionTitle>{category.title}</SectionTitle>
-              <Tags>
-                {category.tags.map((tag) => (
-                  <Tag>{tag}</Tag>
-                ))}
-              </Tags>
-            </Section>
-          ))}
+          <Title>프레임 선택</Title>
           <Section>
-            <SectionTitle>색상</SectionTitle>
+            <SectionTitle>AI 지니가 생성한 프레임</SectionTitle>
+            <FrameImages>
+              {frames.map((image) => (
+                <FrameImage>
+                  <Image unoptimized src={image} alt="FrameImage" fill />
+                </FrameImage>
+              ))}
+            </FrameImages>
+          </Section>
+          <Section>
+            <SectionTitle>일반 프레임</SectionTitle>
             <Colors>
               {colors.map((color) => (
                 <Color
@@ -166,32 +133,23 @@ const SectionTitle = styled.span`
   letter-spacing: -1.6px;
 `;
 
-const Tags = styled.div`
+const FrameImages = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 22px;
 `;
 
-const Tag = styled.button`
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-  font-family: "GmarketSansMedium";
-  background-color: white;
-  display: flex;
-  padding: 12px 47px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  border: 2px solid #aaa;
+const FrameImage = styled.div`
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  background: #d9d9d9;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
 
-  color: #676767;
-  font-size: 32px;
-  font-weight: 500;
-  letter-spacing: -1.6px;
+  img {
+    object-fit: cover;
+  }
 `;
 
 const Color = styled.button<{ color: string }>`
