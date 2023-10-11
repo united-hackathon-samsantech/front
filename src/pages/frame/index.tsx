@@ -76,7 +76,17 @@ const FramePage = () => {
             <SectionTitle>장소</SectionTitle>
             <Tags>
               {locationTags.map((tag, i) => (
-                <Tag isSelect={location[i]}>{tag}</Tag>
+                <Tag
+                  key={i}
+                  onClick={() => {
+                    let newArr = [...location];
+                    newArr[i] = !newArr[i];
+                    setLocation(newArr);
+                  }}
+                  isSelect={location[i]}
+                >
+                  {tag}
+                </Tag>
               ))}
             </Tags>
           </Section>
@@ -84,7 +94,17 @@ const FramePage = () => {
             <SectionTitle>감정</SectionTitle>
             <Tags>
               {emotinoTags.map((tag, i) => (
-                <Tag isSelect={emotion[i]}>{tag}</Tag>
+                <Tag
+                  key={i}
+                  onClick={() => {
+                    let newArr = [...emotion];
+                    newArr[i] = !newArr[i];
+                    setEmotion(newArr);
+                  }}
+                  isSelect={emotion[i]}
+                >
+                  {tag}
+                </Tag>
               ))}
             </Tags>
           </Section>
@@ -212,9 +232,10 @@ const Tag = styled.button<{ isSelect: boolean }>`
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  border: 2px solid #aaa;
+  border: 2px solid ${({ isSelect }) => !isSelect && "#aaa"};
+  background-color: ${({ isSelect }) => (isSelect ? "#F76687" : "#ffffff")};
 
-  color: #676767;
+  color: ${({ isSelect }) => (isSelect ? "#ffffff" : "#676767")};
   font-size: 32px;
   font-weight: 500;
   letter-spacing: -1.6px;
