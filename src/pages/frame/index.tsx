@@ -111,8 +111,18 @@ const FramePage = () => {
           <Section>
             <SectionTitle>컨셉</SectionTitle>
             <Tags>
-              <Tag isSelect={concept === "illustration"}>일러스트</Tag>
-              <Tag isSelect={concept === "picture"}>사진</Tag>
+              <Tag
+                onClick={() => setConcept("illustration")}
+                isSelect={concept === "illustration"}
+              >
+                일러스트
+              </Tag>
+              <Tag
+                onClick={() => setConcept("picture")}
+                isSelect={concept === "picture"}
+              >
+                사진
+              </Tag>
             </Tags>
           </Section>
           <Section>
@@ -234,6 +244,7 @@ const Tag = styled.button<{ isSelect: boolean }>`
   border-radius: 50px;
   border: 2px solid ${({ isSelect }) => !isSelect && "#aaa"};
   background-color: ${({ isSelect }) => (isSelect ? "#F76687" : "#ffffff")};
+  transition: ease-in-out 0.1s;
 
   color: ${({ isSelect }) => (isSelect ? "#ffffff" : "#676767")};
   font-size: 32px;
@@ -246,7 +257,7 @@ const Color = styled.button<{ color: string; isSelect: boolean }>`
   height: 80px;
   border-radius: 20px;
   background-color: ${({ color }) => color};
-  transition: ease-in-out 0.15s;
+  transition: ease-in-out 0.1s;
   ${({ isSelect, color }) =>
     isSelect &&
     "box-shadow: 0 0 10px 5px " + (color === "#ffffff" ? "gray" : color)};
