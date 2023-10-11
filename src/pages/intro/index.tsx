@@ -47,11 +47,6 @@ const AnimalsWrapper = styled(ImageWrapper)`
   left: 345px;
 `;
 
-const RectangleWrapper = styled(ImageWrapper)`
-  width: 1028px;
-  height: 1080px;
-`;
-
 const LogoWrapper = styled(ImageWrapper)`
   position: relative;
   width: 477px;
