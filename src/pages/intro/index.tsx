@@ -23,7 +23,6 @@ const IntroPage = () => {
           <CameraText>사진 촬영하기</CameraText>
         </CameraButton>
       </Contents>
-      <BottomLogo />
     </>
   );
 };
