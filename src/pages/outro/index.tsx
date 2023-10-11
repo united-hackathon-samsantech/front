@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Animals, Logo, Camera } from "@/assets";
+import { Animals, Logo } from "@/assets";
 import Image from "next/image";
 
 const Outro = () => {
@@ -12,6 +12,7 @@ const Outro = () => {
         <LogoWrapper>
           <Image src={Logo} fill alt="" />
         </LogoWrapper>
+        <OutroText>이용해주셔서 감사합니다</OutroText>
       </Contents>
     </BackGround>
   );
@@ -22,7 +23,7 @@ export default Outro;
 const BackGround = styled.div`
   width: 1871px;
   height: 1000px;
-  margin: 40px 0 0 22px;
+  margin: 20px 0 0 22px;
   background-color: white;
   display: flex;
   align-items: center;
@@ -61,4 +62,21 @@ const Contents = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 40px;
+`;
+
+const OutroText = styled.span`
+  color: #f76687;
+  @font-face {
+    font-family: "Cafe24Simplehae";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Simplehae.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: "Cafe24Simplehae";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -4.8px;
 `;
