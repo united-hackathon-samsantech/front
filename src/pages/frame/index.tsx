@@ -16,6 +16,41 @@ const categoryTags = [
   },
 ];
 
+const colors = [
+  {
+    name: "red",
+    color: "#F54141",
+  },
+  {
+    name: "yellow",
+    color: "#FFCA0E",
+  },
+  {
+    name: "green",
+    color: "#55C720",
+  },
+  {
+    name: "blue",
+    color: "#1589F3",
+  },
+  {
+    name: "pupple",
+    color: "#6F3DFF",
+  },
+  {
+    name: "pink",
+    color: "#F773DA",
+  },
+  {
+    name: "black",
+    color: "#000000",
+  },
+  {
+    name: "white",
+    color: "#ffffff",
+  },
+];
+
 const FramePage = () => {
   return (
     <BackGround>
@@ -33,6 +68,14 @@ const FramePage = () => {
               </Tags>
             </Section>
           ))}
+          <Section>
+            <SectionTitle>색상</SectionTitle>
+            <Colors>
+              {colors.map((color) => (
+                <Color color={color.color} />
+              ))}
+            </Colors>
+          </Section>
         </Contents>
       </Main>
     </BackGround>
@@ -48,8 +91,7 @@ const BackGround = styled.div`
   background-color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 5;
+  padding-left: 389px;
 `;
 
 const Main = styled.div`
@@ -78,6 +120,14 @@ const Contents = styled.div`
 `;
 
 const Title = styled.h1`
+  @font-face {
+    font-family: "GmarketSansMedium";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: "GmarketSansMedium";
   font-size: 48px;
   color: #000;
   font-weight: 700;
@@ -92,7 +142,14 @@ const Section = styled.div`
 
 const SectionTitle = styled.span`
   color: #f76687;
-  font-family: Gmarket Sans TTF;
+  @font-face {
+    font-family: "GmarketSansMedium";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: "GmarketSansMedium";
   font-size: 32px;
   font-weight: 500;
   letter-spacing: -1.6px;
@@ -103,7 +160,16 @@ const Tags = styled.div`
   gap: 10px;
 `;
 
-const Tag = styled.div`
+const Tag = styled.button`
+  @font-face {
+    font-family: "GmarketSansMedium";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: "GmarketSansMedium";
+  background-color: white;
   display: flex;
   padding: 12px 47px;
   justify-content: center;
@@ -115,4 +181,16 @@ const Tag = styled.div`
   font-size: 32px;
   font-weight: 500;
   letter-spacing: -1.6px;
+`;
+
+const Color = styled.button<{ color: string }>`
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  background-color: ${({ color }) => color};
+`;
+
+const Colors = styled.div`
+  display: flex;
+  gap: 12px;
 `;
