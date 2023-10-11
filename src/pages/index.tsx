@@ -5,7 +5,6 @@ import PostPreference from "@/components/PosePreference";
 import SelectFrame from "@/components/SelectFrame";
 import SelectPose from "@/components/SelectPose";
 import SelectQuantity from "@/components/SelectQuantity";
-import { useFunnel } from "@toss/use-funnel";
 import { SwitchCase } from "@toss/react";
 import { useState } from "react";
 
