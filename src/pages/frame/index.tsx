@@ -3,21 +3,13 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
+import { useState } from "react";
 
-const categoryTags = [
-  {
-    title: "장소",
-    tags: ["바다", "산", "놀이공원", "시내"],
-  },
-  {
-    title: "감정",
-    tags: ["행복", "즐거움", "감동", "반가움", "사랑"],
-  },
-  {
-    title: "컨셉",
-    tags: ["일러스트", "사진"],
-  },
-];
+const locationTags = ["바다", "산", "놀이공원", "시내"];
+
+const emotinoTags = ["행복", "즐거움", "감동", "반가움", "사랑"];
+
+const conceptTags = ["일러스트", "사진"];
 
 const colors = [
   {
@@ -55,27 +47,60 @@ const colors = [
 ];
 
 const FramePage = () => {
+  const [location, setLocation] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const [emotion, setEmotion] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+
+  const [concept, setConcept] = useState<"illustration" | "picture" | "">("");
+
+  const [selectColor, setSelectColor] = useState<string>("");
+
   return (
     <BackGround>
       <Main>
         <Frame />
         <Contents>
           <Title>태그 선택</Title>
-          {categoryTags.map((category) => (
-            <Section>
-              <SectionTitle>{category.title}</SectionTitle>
-              <Tags>
-                {category.tags.map((tag) => (
-                  <Tag>{tag}</Tag>
-                ))}
-              </Tags>
-            </Section>
-          ))}
+          <Section>
+            <SectionTitle>장소</SectionTitle>
+            <Tags>
+              {locationTags.map((tag, i) => (
+                <Tag isSelect={location[i]}>{tag}</Tag>
+              ))}
+            </Tags>
+          </Section>
+          <Section>
+            <SectionTitle>감정</SectionTitle>
+            <Tags>
+              {emotinoTags.map((tag, i) => (
+                <Tag isSelect={emotion[i]}>{tag}</Tag>
+              ))}
+            </Tags>
+          </Section>
+          <Section>
+            <SectionTitle>컨셉</SectionTitle>
+            <Tags>
+              <Tag isSelect={concept === "illustration"}>일러스트</Tag>
+              <Tag isSelect={concept === "picture"}>사진</Tag>
+            </Tags>
+          </Section>
           <Section>
             <SectionTitle>색상</SectionTitle>
             <Colors>
               {colors.map((color) => (
                 <Color
+                  isSelect={color.name === selectColor}
                   css={
                     color.name === "white" &&
                     css`
@@ -171,7 +196,7 @@ const Tags = styled.div`
   gap: 10px;
 `;
 
-const Tag = styled.button`
+const Tag = styled.button<{ isSelect: boolean }>`
   @font-face {
     font-family: "GmarketSansMedium";
     src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
@@ -194,7 +219,7 @@ const Tag = styled.button`
   letter-spacing: -1.6px;
 `;
 
-const Color = styled.button<{ color: string }>`
+const Color = styled.button<{ color: string; isSelect: boolean }>`
   width: 80px;
   height: 80px;
   border-radius: 20px;
