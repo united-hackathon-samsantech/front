@@ -6,7 +6,7 @@ const Camera = () => (
     viewBox="0 0 51 50"
     fill="none"
   >
-    <g clip-path="url(#clip0_46_9)">
+    <g clipPath="url(#clip0_46_9)">
       <path
         fillRule="evenodd"
         clipRule="evenodd"
