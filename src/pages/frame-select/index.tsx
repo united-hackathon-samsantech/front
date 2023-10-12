@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
+import { useState } from "react";
+import { SmallLogo } from "@/assets/frame";
 
 const colors = [
   {
@@ -16,24 +18,65 @@ const colors = [
   },
 ];
 
+const images = [
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+];
+
 const frames = [
   "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
+  "https://png.pngtree.com/background/20210709/original/pngtree-spray-powder-glare-colorful-background-picture-image_623477.jpg",
+  "https://toktok.io/wp-content/uploads/iphone-13-official-wallpaper.jpg",
 ];
 
 const FrameSelectPage = () => {
+  const [selectedFrame, setSelectedFrame] = useState<number>(0);
+
   return (
     <BackGround>
       <Main>
-        <Frame />
+        <Frame
+          css={css`
+            ${selectedFrame < 3
+              ? `background-image: url(${frames[selectedFrame]});`
+              : "background: " + (selectedFrame === 3 ? "black;" : "white;  ")}
+            background-size: cover;
+            ${selectedFrame === 4 && "border: solid 1px black"};
+          `}
+        >
+          <ImageContainer>
+            {images.map((image) => (
+              <Image
+                alt={image}
+                src={image}
+                width={186}
+                height={251}
+                unoptimized
+              />
+            ))}
+          </ImageContainer>
+          <Image src={SmallLogo} alt="logo" width={159} height={85} />
+        </Frame>
         <Contents>
           <Title>프레임 선택</Title>
           <Section>
             <SectionTitle>AI 지니가 생성한 프레임</SectionTitle>
             <FrameImages>
-              {frames.map((image) => (
-                <FrameImage>
+              {frames.map((image, i) => (
+                <FrameImage
+                  onClick={() => setSelectedFrame(i)}
+                  css={
+                    i === selectedFrame &&
+                    css`
+                      box-shadow: 15px 15px 13px #666;
+                      position: relative;
+                      bottom: 10px;
+                      transition: ease-in-out 0.3s;
+                    `
+                  }
+                >
                   <Image unoptimized src={image} alt="FrameImage" fill />
                 </FrameImage>
               ))}
@@ -42,8 +85,10 @@ const FrameSelectPage = () => {
           <Section>
             <SectionTitle>일반 프레임</SectionTitle>
             <Colors>
-              {colors.map((color) => (
+              {colors.map((color, i) => (
                 <Color
+                  onClick={() => setSelectedFrame(i + 3)}
+                  isSelect={i + 3 === selectedFrame}
                   css={
                     color.name === "white" &&
                     css`
@@ -83,6 +128,27 @@ const Frame = styled.div`
   width: 473px;
   height: 787px;
   background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 88px;
+  gap: 32px;
+
+  overflow: hidden;
+  position: relative;
+  transition: ease-in-out 0.2s;
+  img {
+    object-fit: cover;
+  }
+`;
+
+const ImageContainer = styled.div`
+  width: 392px;
+  height: 532px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px 16px;
 `;
 
 const Contents = styled.div`
@@ -154,11 +220,14 @@ const FrameImage = styled.div`
   }
 `;
 
-const Color = styled.button<{ color: string }>`
+const Color = styled.button<{ color: string; isSelect: boolean }>`
   width: 80px;
   height: 80px;
   border-radius: 20px;
   background-color: ${({ color }) => color};
+  ${({ isSelect, color }) =>
+    isSelect &&
+    "box-shadow: 0 0 10px 5px " + (color === "#ffffff" ? "gray" : color)};
 `;
 
 const Colors = styled.div`
