@@ -85,38 +85,41 @@ const GenderAnalysis = () => {
       } else if (detections.length == 1) {
         setAge(detections[0].age);
         setGender(detections[0].gender);
-        console.log(detections[0].age);
+        console.log(detections[0].gender);
       }
     }, 1000);
   };
 
   return (
-    <div className="myapp">
-      <h1>FAce Detection</h1>
-      <div className="appvide">
-        <video crossOrigin="anonymous" ref={videoRef} autoPlay></video>
+    <BackGround>
+      <div className="myapp" style={{ display: "none" }}>
+        <div className="appvide">
+          <video crossOrigin="anonymous" ref={videoRef} autoPlay></video>
+        </div>
+        <canvas
+          ref={canvasRef}
+          width="940"
+          height="650"
+          className="appcanvas"
+          display="none"
+        />
       </div>
-      <canvas ref={canvasRef} width="940" height="650" className="appcanvas" />
-    </div>
-    // <BackGround>
-    //   <Main>
-    //     <video crossOrigin="anonymous" ref={videoRef}></video>
-    //     <canvas ref={canvasRef} width={940} height={650}></canvas>
-    //     <Contents>
-    //       <Image src={PhotoRabbit} alt="" width={300} height={300}></Image>
-    //       <Text>
-    //         AI 지니가 인생사진을 위해 포즈를 준비했어요
-    //         <br />
-    //         포즈를 추천 받으시겠어요?
-    //         <br />
-    //       </Text>
-    //       <Button>
-    //         <Image src={PoseIcon} alt="" width={50} height={50} />
-    //         포즈 추천 받기
-    //       </Button>
-    //     </Contents>
-    //   </Main>
-    // </BackGround>
+      <Main>
+        <Contents>
+          <Image src={PhotoRabbit} alt="" width={300} height={300}></Image>
+          <Text>
+            AI 지니가 인생사진을 위해 포즈를 준비했어요
+            <br />
+            포즈를 추천 받으시겠어요?
+            <br />
+          </Text>
+          <Button>
+            <Image src={PoseIcon} alt="" width={50} height={50} />
+            포즈 추천 받기
+          </Button>
+        </Contents>
+      </Main>
+    </BackGround>
   );
 };
 
