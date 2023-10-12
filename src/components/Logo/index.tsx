@@ -10,9 +10,9 @@ const Logo = () => (
 export default Logo;
 
 const LogoWrapper = styled.div`
-  width: 322px;
-  height: 145px;
+  width: 282px;
+  height: 125px;
   position: absolute;
-  bottom: 50px;
-  right: 54px;
+  bottom: 40px;
+  right: 44px;
 `;
