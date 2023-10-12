@@ -224,9 +224,11 @@ const BackGround = styled.div`
 `;
 
 const Main = styled.div`
-  padding: 70px 0 0 289px;
+  margin-top: 70px;
   display: flex;
-  gap: 74px;
+  align-items: center;
+  justify-content: center;
+  gap: 140px;
 `;
 
 const Frame = styled.div`

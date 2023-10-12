@@ -170,7 +170,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                       css={
                         i === selectedFrame &&
                         css`
-                          box-shadow: 15px 15px 13px #666;
+                          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* 그림자 효과 설정 */
                           position: relative;
                           bottom: 10px;
                           transition: ease-in-out 0.3s;
