@@ -1,7 +1,7 @@
 import { FunnelStep, PhotoBoothStep } from "@/types";
 
 import styled from "@emotion/styled";
-import { Animals, Logo, Camera } from "@/assets";
+import { Animals, Logo, Camera, Rectangle } from "@/assets";
 import Image from "next/image";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 
@@ -14,6 +14,9 @@ const Main = ({ nextStep }: MainProps) => {
 
   return (
     <>
+      <RectangleWrapper>
+        <Image src={Rectangle} alt="Rectangle" fill />
+      </RectangleWrapper>
       <BackgroundText>
         HELLO WE’
         <br />
@@ -45,6 +48,11 @@ const ImageWrapper = styled.div`
   img {
     object-fit: cover;
   }
+`;
+
+const RectangleWrapper = styled(ImageWrapper)`
+  width: 52vw;
+  height: 100vh;
 `;
 
 const RabbitWrapper = styled(ImageWrapper)`
