@@ -16,7 +16,7 @@ import { Loading } from "@/components";
 import Text from "../common/Text";
 import ReactToPrint from "react-to-print";
 import { usePhotosValueStore } from "@/store/photos";
-
+import { usePhotoQuantityValueStore } from "@/store/photoQuantity";
 
 const colors = [
   {
@@ -75,6 +75,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
+  const photoQuantity = usePhotoQuantityValueStore();
 
   useEffect(() => {
     getAPIKey();
@@ -104,7 +105,6 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
           <Main>
             {/* 이거임 */}
             <Frame
-              ref={printRef}
               css={css`
                 ${selectedFrame < 3
                   ? `background-image: url(${result[selectedFrame]});`
@@ -128,6 +128,34 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
               </ImageContainer>
               <Image src={SmallLogo} alt="logo" width={159} height={85} />
             </Frame>
+            <Print ref={printRef}>
+              {Array.from({ length: photoQuantity }, () => (
+                <Frame
+                  css={css`
+                    ${selectedFrame < 3
+                      ? `background-image: url(${result[selectedFrame]});`
+                      : "background: " +
+                        (selectedFrame === 3 ? "black;" : "white;  ")}
+                    background-size: cover;
+                    ${selectedFrame === 4 && "border: solid 1px black"};
+                  `}
+                >
+                  <ImageContainer>
+                    {pothos.map((image, i) => (
+                      <Image
+                        key={i}
+                        alt={image}
+                        src={image}
+                        width={163}
+                        height={221}
+                        unoptimized
+                      />
+                    ))}
+                  </ImageContainer>
+                  <Image src={SmallLogo} alt="logo" width={159} height={85} />
+                </Frame>
+              ))}
+            </Print>
             <Contents>
               <Title>프레임 선택</Title>
               <Section>
@@ -203,13 +231,13 @@ const Main = styled.div`
 
 const Frame = styled.div`
   width: 420px;
-  height: 700px;
+  height: 626px;
   background-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 58px;
-  gap: 22px;
+  padding-top: 32px;
+  gap: 18px;
 
   transition: ease-in-out 0.2s;
 `;
@@ -309,4 +337,14 @@ const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+const Print = styled.div`
+  break-after: page;
+  @media print {
+    margin-top: 0;
+  }
+  @media screen {
+    display: none;
+  }
 `;
