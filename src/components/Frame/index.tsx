@@ -129,6 +129,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
           <ImageContainer>
             {pothos?.map((image, i) => (
               <Image
+                loading="lazy"
                 key={i}
                 alt={image}
                 src={image}
@@ -138,7 +139,13 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
               />
             ))}
           </ImageContainer>
-          <Image src={SmallLogo} alt="logo" width={159} height={85} />
+          <Image
+            loading="lazy"
+            src={SmallLogo}
+            alt="logo"
+            width={159}
+            height={85}
+          />
         </Frame>
         <Contents>
           <Title>태그 선택</Title>
