@@ -19,8 +19,8 @@ const colors = [
 
 const frames = [
   "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://png.pngtree.com/background/20230610/original/pngtree-landscape-wallpaper-fb-wallpapers-picture-image_3017516.jpg",
-  "https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2020/10/background-ideas-20.jpg",
+  "https://png.pngtree.com/background/20210709/original/pngtree-spray-powder-glare-colorful-background-picture-image_623477.jpg",
+  "https://toktok.io/wp-content/uploads/iphone-13-official-wallpaper.jpg",
 ];
 
 const FrameSelectPage = () => {
@@ -34,6 +34,7 @@ const FrameSelectPage = () => {
             ${selectedFrame < 3
               ? `background-image: url(${frames[selectedFrame]});`
               : "background: " + (selectedFrame === 3 ? "black;" : "white;  ")}
+            background-size: cover;
             ${selectedFrame === 4 && "border: solid 1px black"};
           `}
         ></Frame>
