@@ -13,6 +13,7 @@ import { Configuration, OpenAIApi } from "openai";
 import { useTranslatedTextStore } from "@/store/translatedText";
 import axios from "axios";
 import { Loading } from "@/components";
+import Text from "../common/Text";
 
 const colors = [
   {
@@ -86,15 +87,17 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
     <>
       {isLoad ? (
         <BackGround>
-          <Header>
+          <StyledHeader>
             <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
               돌아가기
             </Button>
-            <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
+            <Text size="28px" weight={600}>
+              프레임을 선택해주세요
+            </Text>
             <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
-              인쇄하기
+              선택 완료
             </Button>
-          </Header>
+          </StyledHeader>
           <Main>
             <Frame
               css={css`
@@ -179,14 +182,13 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
 export default FinalSelect;
 
 const BackGround = styled.div`
-  width: 1671px;
-  height: 1000px;
-  margin: 22px 0 0 22px;
-  background-color: white;
+  padding: 16px;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Main = styled.div`
-  padding-left: 289px;
+  padding: 70px 0 0 289px;
   display: flex;
   gap: 74px;
 `;
@@ -293,4 +295,10 @@ const Description = styled.p`
 
 const ReCreateWrapper = styled.div`
   margin: 27px 0 60px;
+`;
+
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
