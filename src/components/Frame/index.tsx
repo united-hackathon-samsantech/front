@@ -11,6 +11,7 @@ import { useSetTranslatedTextValueStore } from "@/store/translatedText";
 import Button from "../common/Button";
 import axios from "axios";
 import Text from "../common/Text";
+import { usePhotosValueStore } from "@/store/photos";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -64,6 +65,7 @@ interface FrameProps {
 }
 
 const FramePage = ({ nextStep, prevStep }: FrameProps) => {
+  const pothos = usePhotosValueStore();
   const [location, setLocation] = useState<boolean[]>([
     false,
     false,
@@ -132,7 +134,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
       <Main>
         <Frame>
           <ImageContainer>
-            {images.map((image) => (
+            {pothos?.map((image) => (
               <Image
                 alt={image}
                 src={image}

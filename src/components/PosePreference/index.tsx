@@ -21,6 +21,7 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const setPoseInfo = useSetPoseInfoAtomStateStore();
+  const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   const [maxage, setMaxage] = useState<number>(0);
   const [minage, setMinage] = useState<number>(100);

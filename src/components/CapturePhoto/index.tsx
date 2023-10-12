@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import ProgressBar from "./ProgressBar";
 import { clear } from "console";
+import { useRandomPhotoValueStore } from "@/store/photoRandom";
 
 interface CapturePhotoProps extends FunnelStep {}
 
@@ -21,6 +22,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
   const [photos, setPhotos] = usePhotosStore();
   const [progress, setProgress] = useState(30);
+  const randomPosePhoto = useRandomPhotoValueStore();
 
   const capturePhoto = () => {
     const photo = webcamRef.current?.getScreenshot();
@@ -68,7 +70,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
         <Text size="28px" weight={600}>
           사진 촬영을 시작합니다
         </Text>
-        <Button icon="NEXT">촬영 완료</Button>
+        <div />
       </StyledHeader>
       <Column alignItems="center">
         <ProgressBar max={3} available={progress} />
@@ -89,7 +91,12 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
               <Text size="24px" weight={700}>
                 AI 지니의 추천 포즈
               </Text>
-              <Image src={RecommendPoseImage} alt="Recommend Pose" />
+              <img
+                width={300}
+                height={400}
+                src={randomPosePhoto ?? ""}
+                alt="Recommend Pose"
+              />
             </Column>
             <Column gap="5px">
               <Text size="32px" weight={700}>

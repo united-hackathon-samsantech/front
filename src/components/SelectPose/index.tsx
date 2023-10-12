@@ -10,6 +10,7 @@ import Text from "../common/Text";
 import RecommendPoseImage from "../../assets/images/recommend-pose.png";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import { instance } from "@/apis/core";
+import { useRandomPhotoStore } from "@/store/photoRandom";
 
 interface SelectPoseProps {
   prevStep: PhotoBoothStep;
@@ -17,9 +18,9 @@ interface SelectPoseProps {
 }
 
 const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
+  const [randomPosePhoto, setRandomPosePhoto] = useRandomPhotoStore();
   const webcamRef = useRef<Webcam>(null);
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
-  const [randomPosePhoto, setRandomPosePhoto] = useState();
 
   const getRandomPhoto = async () => {
     try {
