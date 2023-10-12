@@ -19,4 +19,5 @@ export default Document;
 
 const Body = styled.body`
   overflow-y: hidden;
+  display: flex;
 `;

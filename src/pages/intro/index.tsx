@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import styled from "@emotion/styled";
 import { Animals, Logo, Camera } from "@/assets";
 import Image from "next/image";
@@ -54,13 +52,6 @@ const LogoWrapper = styled(ImageWrapper)`
 `;
 
 const BackgroundText = styled.h1`
-  @font-face {
-    font-family: "TmonMonsori";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   font-family: "TmonMonsori";
   font-size: 250px;
   font-weight: 900;
