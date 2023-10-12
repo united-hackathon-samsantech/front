@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { Logo } from "@/components";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
+import { Vector } from "@/assets";
 
 const colors = [
   {
@@ -36,6 +37,17 @@ const FrameSelectPage = () => {
 
   return (
     <BackGround>
+      <Header>
+        <MoveBtn>
+          <Vector direction="left" />
+          <BtnText>돌아가기</BtnText>
+        </MoveBtn>
+        <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
+        <MoveBtn>
+          <BtnText>인쇄 하기</BtnText>
+          <Vector direction="right" />
+        </MoveBtn>
+      </Header>
       <Main>
         <Frame
           css={css`
@@ -114,12 +126,10 @@ const BackGround = styled.div`
   height: 1000px;
   margin: 22px 0 0 22px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  padding-left: 389px;
 `;
 
 const Main = styled.div`
+  padding-left: 389px;
   display: flex;
   gap: 74px;
 `;
@@ -209,4 +219,35 @@ const Colors = styled.div`
   gap: 12px;
 `;
 
-const Header = styled.div``;
+const Header = styled.div`
+  width: calc(100vw - 100px);
+  display: flex;
+  padding: 45px 46px 72px 46px;
+  justify-content: space-between;
+`;
+
+const MoveBtn = styled.button`
+  display: inline-flex;
+  padding: 10px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  gap: 12px;
+  background: #f76687;
+`;
+
+const BtnText = styled.span`
+  color: #fff;
+  font-family: "Cafe24Simplehae";
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1.6px;
+`;
+
+const Description = styled.p`
+  color: #000;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -2.4px;
+  font-family: "GmarketSansMedium";
+`;

@@ -90,7 +90,7 @@ const FramePage = () => {
         </MoveBtn>
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
         <MoveBtn>
-          <BtnText>인쇄하기</BtnText>
+          <BtnText>선택 완료</BtnText>
           <Vector direction="right" />
         </MoveBtn>
       </Header>
