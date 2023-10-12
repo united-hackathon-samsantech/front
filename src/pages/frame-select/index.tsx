@@ -5,6 +5,7 @@ import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
 import { useState } from "react";
+import { SmallLogo } from "@/assets/frame";
 
 const colors = [
   {
@@ -15,6 +16,13 @@ const colors = [
     color: "#ffffff",
     name: "white",
   },
+];
+
+const images = [
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
 ];
 
 const frames = [
@@ -37,7 +45,20 @@ const FrameSelectPage = () => {
             background-size: cover;
             ${selectedFrame === 4 && "border: solid 1px black"};
           `}
-        ></Frame>
+        >
+          <ImageContainer>
+            {images.map((image) => (
+              <Image
+                alt={image}
+                src={image}
+                width={186}
+                height={251}
+                unoptimized
+              />
+            ))}
+          </ImageContainer>
+          <Image src={SmallLogo} alt="logo" width={159} height={85} />
+        </Frame>
         <Contents>
           <Title>프레임 선택</Title>
           <Section>
@@ -107,6 +128,11 @@ const Frame = styled.div`
   width: 473px;
   height: 787px;
   background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 88px;
+  gap: 32px;
 
   overflow: hidden;
   position: relative;
@@ -114,6 +140,15 @@ const Frame = styled.div`
   img {
     object-fit: cover;
   }
+`;
+
+const ImageContainer = styled.div`
+  width: 392px;
+  height: 532px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px 16px;
 `;
 
 const Contents = styled.div`
