@@ -1,2 +1,10 @@
 export { default as Loading } from "./Loading";
 export { default as Logo } from "./Logo";
+export { default as Complete } from "./Complete";
+export { default as Frame } from "./Frame";
+export { default as FinalSelect } from "./FinalSelect";
+export { default as Main } from "./Main";
+export { default as PosePreference } from "./PosePreference";
+export { default as SelectPose } from "./SelectPose";
+export { default as SelectQuantity } from "./SelectQuantity";
+export { default as CapturePhoto } from "./CapturePhoto";

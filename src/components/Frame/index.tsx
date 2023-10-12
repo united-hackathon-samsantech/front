@@ -7,8 +7,11 @@ import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { useSetTranslatedTextValueStore } from "@/store/translatedText";
 import Button from "../common/Button";
 import axios from "axios";
+import Text from "../common/Text";
+import { usePhotosValueStore } from "@/store/photos";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -49,19 +52,13 @@ const colors = [
   },
 ];
 
-const images = [
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-];
-
 interface FrameProps {
   nextStep: PhotoBoothStep;
   prevStep: PhotoBoothStep;
 }
 
 const FramePage = ({ nextStep, prevStep }: FrameProps) => {
+  const pothos = usePhotosValueStore();
   const [location, setLocation] = useState<boolean[]>([
     false,
     false,
@@ -81,52 +78,58 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 
   const [selectColor, setSelectColor] = useState<string>("");
 
-  const translate = (text: string) => {
+  const useSetText = useSetTranslatedTextValueStore();
+
+  const translate = async (text: string) => {
     try {
-      let res = axios
+      await axios
         .post("/api", {
           text: text,
         })
         .then(({ data }) => {
-          console.log(data.message.result.translatedText);
+          const textValue = data.message.result.translatedText;
+          useSetText(textValue);
         });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const submitTags = () => {
+  const submitTags = async () => {
     const locationList = locationTags.filter((_, i) => location[i]).join(", ");
     const emotionList = emotinoTags.filter((_, i) => emotion[i]).join("과 ");
     const concept = isPicture ? "사진" : "일러스트";
     const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
-    translate(sentence);
+    await translate(sentence);
   };
 
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   return (
     <BackGround>
-      <Header>
+      <StyledHeader>
         <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
           돌아가기
         </Button>
-        <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
+        <Text size="28px" weight={600}>
+          프레임 생성을 위해 태그를 선택해주세요
+        </Text>
         <Button
           icon="NEXT"
-          onClick={() => {
+          onClick={async () => {
+            await submitTags();
             setPhotoBoothStep(nextStep);
-            submitTags();
           }}
         >
-          선택완료
+          선택 완료
         </Button>
-      </Header>
+      </StyledHeader>
       <Main>
         <Frame>
           <ImageContainer>
-            {images.map((image) => (
+            {pothos?.map((image, i) => (
               <Image
+                key={i}
                 alt={image}
                 src={image}
                 width={163}
@@ -189,8 +192,9 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
           <Section>
             <SectionTitle>색상</SectionTitle>
             <Colors>
-              {colors.map((color) => (
+              {colors.map((color, i) => (
                 <Color
+                  key={i}
                   onClick={() => setSelectColor(color.name)}
                   isSelect={color.name === selectColor}
                   css={
@@ -213,14 +217,13 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 export default FramePage;
 
 const BackGround = styled.div`
-  width: 1671px;
-  height: 1000px;
-  margin: 22px 0 0 22px;
-  background-color: white;
+  padding: 16px;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Main = styled.div`
-  padding-left: 289px;
+  padding: 70px 0 0 289px;
   display: flex;
   gap: 74px;
 `;
@@ -315,18 +318,8 @@ const Colors = styled.div`
   gap: 12px;
 `;
 
-const Header = styled.div`
-  width: calc(100vw - 100px);
+const StyledHeader = styled.div`
   display: flex;
-  padding: 45px 46px 32px 46px;
+  align-items: center;
   justify-content: space-between;
-  margin-left: 20px;
-`;
-
-const Description = styled.p`
-  color: #000;
-  font-size: 38px;
-  font-weight: 400;
-  letter-spacing: -2.4px;
-  font-family: "GmarketSansMedium";
 `;

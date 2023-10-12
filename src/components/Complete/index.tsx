@@ -4,6 +4,7 @@ import Image from "next/image";
 import { PhotoBoothStep } from "@/types";
 import Button from "../common/Button";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import Text from "../common/Text";
 
 interface CompleteProps {
   nextStep: PhotoBoothStep;
@@ -14,12 +15,15 @@ const Complete: React.FC<CompleteProps> = ({ nextStep }) => {
 
   return (
     <BackGround>
-      <Header>
-        <Description>지니포토가 인쇄되고 있어요</Description>
+      <StyledHeader>
+        <div style={{ width: "200px" }}></div>
+        <Text size="28px" weight={600}>
+          프레임 생성을 위해 태그를 선택해주세요
+        </Text>
         <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
           메인으로
         </Button>
-      </Header>
+      </StyledHeader>
       <AnimalsWrapper>
         <Image src={Animals} fill alt="" />
       </AnimalsWrapper>
@@ -87,18 +91,8 @@ const CompleteText = styled.span`
   letter-spacing: -4.8px;
 `;
 
-const Header = styled.div`
-  width: calc(100vw - 100px);
+const StyledHeader = styled.div`
   display: flex;
-  padding: 45px 46px 32px 656px;
+  align-items: center;
   justify-content: space-between;
-  margin-left: 20px;
-`;
-
-const Description = styled.p`
-  color: #000;
-  font-size: 38px;
-  font-weight: 400;
-  letter-spacing: -2.4px;
-  font-family: "GmarketSansMedium";
 `;

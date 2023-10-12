@@ -43,12 +43,9 @@ const LoadingText = styled.p`
 `;
 
 const BackGround = styled.div`
-  width: 1871px;
+  padding-top: 200px;
+  width: 1671px;
   height: 1000px;
   margin: 22px 0 0 22px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
 `;
