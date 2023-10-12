@@ -10,6 +10,7 @@ import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import Button from "../common/Button";
 import { Configuration, OpenAIApi } from "openai";
+import { useTranslatedTextStore } from "@/store/translatedText";
 import axios from "axios";
 
 const colors = [
@@ -44,14 +45,12 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
 
   const generateImage = async () => {
     const res = await openai.createImage({
-      prompt:
-        "An illustration with a blue-themed design that represents a joyful mood at an amusement park",
+      prompt: inputValue[0],
       n: 3,
       size: "512x512",
     });
     let imageArr = [];
     imageArr = res.data.data.map((v) => v.url ?? "");
-    console.log(imageArr);
     setResult(imageArr);
   };
 
@@ -65,6 +64,8 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
 
     localStorage.setItem("key", data.token);
   };
+
+  const inputValue = useTranslatedTextStore();
 
   const [selectedFrame, setSelectedFrame] = useState<number>(0);
   const [result, setResult] = useState<string[]>([]);
