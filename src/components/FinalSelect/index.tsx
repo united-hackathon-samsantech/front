@@ -4,11 +4,15 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import Button from "../common/Button";
+import { Configuration, OpenAIApi } from "openai";
+import { useTranslatedTextStore } from "@/store/translatedText";
+import axios from "axios";
+import { Loading } from "@/components";
 
 const colors = [
   {
@@ -28,105 +32,147 @@ const images = [
   "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
 ];
 
-const frames = [
-  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://png.pngtree.com/background/20210709/original/pngtree-spray-powder-glare-colorful-background-picture-image_623477.jpg",
-  "https://toktok.io/wp-content/uploads/iphone-13-official-wallpaper.jpg",
-];
-
 interface FinalSelectProps {
   nextStep: PhotoBoothStep;
   prevStep: PhotoBoothStep;
 }
 
 const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
+  const configuration = new Configuration({
+    apiKey: localStorage.getItem("key") as string,
+  });
+
+  const openai = new OpenAIApi(configuration);
+
+  const generateImage = async () => {
+    setIsLoad(false);
+    const res = await openai.createImage({
+      prompt: inputValue[0],
+      n: 3,
+      size: "512x512",
+    });
+    let imageArr = [];
+    imageArr = res.data.data.map((v) => v.url ?? "");
+    setResult(imageArr);
+    setIsLoad(true);
+  };
+
+  const getAPIKey = async () => {
+    const { data } = await axios.post(
+      "http://api.h4u.kro.kr:7070/api/openai-key",
+      {
+        teamKey: "ea0f36c1-57a8-4ab1-bd1f-b458b4001ab9",
+      }
+    );
+
+    localStorage.setItem("key", data.token);
+  };
+
+  const inputValue = useTranslatedTextStore();
+
   const [selectedFrame, setSelectedFrame] = useState<number>(0);
+  const [result, setResult] = useState<string[]>([]);
+
+  const [isLoad, setIsLoad] = useState<boolean>(false);
+
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
+  useEffect(() => {
+    getAPIKey();
+    generateImage();
+  }, []);
+
   return (
-    <BackGround>
-      <Header>
-        <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
-          돌아가기
-        </Button>
-        <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-        <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
-          인쇄하기
-        </Button>
-      </Header>
-      <Main>
-        <Frame
-          css={css`
-            ${selectedFrame < 3
-              ? `background-image: url(${frames[selectedFrame]});`
-              : "background: " + (selectedFrame === 3 ? "black;" : "white;  ")}
-            background-size: cover;
-            ${selectedFrame === 4 && "border: solid 1px black"};
-          `}
-        >
-          <ImageContainer>
-            {images.map((image) => (
-              <Image
-                alt={image}
-                src={image}
-                width={163}
-                height={221}
-                unoptimized
-              />
-            ))}
-          </ImageContainer>
-          <Image src={SmallLogo} alt="logo" width={159} height={85} />
-        </Frame>
-        <Contents>
-          <Title>프레임 선택</Title>
-          <Section>
-            <SectionTitle>AI 지니가 생성한 프레임</SectionTitle>
-            <FrameImages>
-              {frames.map((image, i) => (
-                <FrameImage
-                  onClick={() => setSelectedFrame(i)}
-                  css={
-                    i === selectedFrame &&
-                    css`
-                      box-shadow: 15px 15px 13px #666;
-                      position: relative;
-                      bottom: 10px;
-                      transition: ease-in-out 0.3s;
-                    `
-                  }
-                >
-                  <Image unoptimized src={image} alt="FrameImage" fill />
-                </FrameImage>
-              ))}
-            </FrameImages>
-            <ReCreateWrapper>
-              <Button icon="NEXT" onClick={() => {}}>
-                재생성하기
-              </Button>
-            </ReCreateWrapper>
-          </Section>
-          <Section>
-            <SectionTitle>일반 프레임</SectionTitle>
-            <Colors>
-              {colors.map((color, i) => (
-                <Color
-                  onClick={() => setSelectedFrame(i + 3)}
-                  isSelect={i + 3 === selectedFrame}
-                  css={
-                    color.name === "white" &&
-                    css`
-                      border: black 1px solid;
-                    `
-                  }
-                  color={color.color}
-                />
-              ))}
-            </Colors>
-          </Section>
-        </Contents>
-      </Main>
-      <Logo />
-    </BackGround>
+    <>
+      {isLoad ? (
+        <BackGround>
+          <Header>
+            <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
+              돌아가기
+            </Button>
+            <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
+            <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+              인쇄하기
+            </Button>
+          </Header>
+          <Main>
+            <Frame
+              css={css`
+                ${selectedFrame < 3
+                  ? `background-image: url(${result[selectedFrame]});`
+                  : "background: " +
+                    (selectedFrame === 3 ? "black;" : "white;  ")}
+                background-size: cover;
+                ${selectedFrame === 4 && "border: solid 1px black"};
+              `}
+            >
+              <ImageContainer>
+                {images.map((image) => (
+                  <Image
+                    alt={image}
+                    src={image}
+                    width={163}
+                    height={221}
+                    unoptimized
+                  />
+                ))}
+              </ImageContainer>
+              <Image src={SmallLogo} alt="logo" width={159} height={85} />
+            </Frame>
+            <Contents>
+              <Title>프레임 선택</Title>
+              <Section>
+                <SectionTitle>AI 지니가 생성한 프레임</SectionTitle>
+                <FrameImages>
+                  {result.map((image, i) => (
+                    <FrameImage
+                      onClick={() => setSelectedFrame(i)}
+                      css={
+                        i === selectedFrame &&
+                        css`
+                          box-shadow: 15px 15px 13px #666;
+                          position: relative;
+                          bottom: 10px;
+                          transition: ease-in-out 0.3s;
+                        `
+                      }
+                    >
+                      <Image unoptimized src={image} alt="FrameImage" fill />
+                    </FrameImage>
+                  ))}
+                </FrameImages>
+                <ReCreateWrapper>
+                  <Button icon="NEXT" onClick={generateImage}>
+                    재생성하기
+                  </Button>
+                </ReCreateWrapper>
+              </Section>
+              <Section>
+                <SectionTitle>일반 프레임</SectionTitle>
+                <Colors>
+                  {colors.map((color, i) => (
+                    <Color
+                      onClick={() => setSelectedFrame(i + 3)}
+                      isSelect={i + 3 === selectedFrame}
+                      css={
+                        color.name === "white" &&
+                        css`
+                          border: black 1px solid;
+                        `
+                      }
+                      color={color.color}
+                    />
+                  ))}
+                </Colors>
+              </Section>
+            </Contents>
+          </Main>
+          <Logo />
+        </BackGround>
+      ) : (
+        <Loading />
+      )}
+    </>
   );
 };
 

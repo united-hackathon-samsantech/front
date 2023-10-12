@@ -7,6 +7,7 @@ import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { useSetTranslatedTextValueStore } from "@/store/translatedText";
 import Button from "../common/Button";
 import axios from "axios";
 
@@ -81,26 +82,29 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 
   const [selectColor, setSelectColor] = useState<string>("");
 
-  const translate = (text: string) => {
+  const useSetText = useSetTranslatedTextValueStore();
+
+  const translate = async (text: string) => {
     try {
-      let res = axios
+      await axios
         .post("/api", {
           text: text,
         })
         .then(({ data }) => {
-          console.log(data.message.result.translatedText);
+          const textValue = data.message.result.translatedText;
+          useSetText(textValue);
         });
     } catch (error) {
       console.error(error);
     }
   };
 
-  const submitTags = () => {
+  const submitTags = async () => {
     const locationList = locationTags.filter((_, i) => location[i]).join(", ");
     const emotionList = emotinoTags.filter((_, i) => emotion[i]).join("과 ");
     const concept = isPicture ? "사진" : "일러스트";
     const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
-    translate(sentence);
+    await translate(sentence);
   };
 
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
@@ -114,9 +118,9 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
         <Button
           icon="NEXT"
-          onClick={() => {
+          onClick={async () => {
+            await submitTags();
             setPhotoBoothStep(nextStep);
-            submitTags();
           }}
         >
           선택완료
