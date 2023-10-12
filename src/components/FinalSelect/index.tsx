@@ -4,11 +4,12 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import Button from "../common/Button";
+import { Configuration, OpenAIApi } from "openai";
 
 const colors = [
   {
@@ -40,8 +41,33 @@ interface FinalSelectProps {
 }
 
 const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
+  const configuration = new Configuration({
+    apiKey: "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",
+  });
+
+  const openai = new OpenAIApi(configuration);
+
   const [selectedFrame, setSelectedFrame] = useState<number>(0);
+  const [result, setResult] = useState<string[]>([]);
+
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
+
+  const generateImage = async () => {
+    const res = await openai.createImage({
+      prompt:
+        "An illustration with a blue-themed design that represents a joyful mood at an amusement park",
+      n: 5,
+      size: "512x512",
+    });
+    let imageArr = [];
+    imageArr = res.data.data.map((v) => v.url ?? "");
+    console.log(imageArr);
+    setResult(imageArr);
+  };
+
+  useEffect(() => {
+    generateImage();
+  }, []);
 
   return (
     <BackGround>
