@@ -1,6 +1,6 @@
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import styled from "@emotion/styled";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "../common/Button";
 import Column from "../common/Flex/Column";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import Text from "../common/Text";
 import RecommendPoseImage from "../../assets/images/recommend-pose.png";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { instance } from "@/apis/core";
 
 interface SelectPoseProps {
   prevStep: PhotoBoothStep;
@@ -18,6 +19,21 @@ interface SelectPoseProps {
 const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
   const webcamRef = useRef<Webcam>(null);
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
+  const [randomPosePhoto, setRandomPosePhoto] = useState();
+
+  const getRandomPhoto = async () => {
+    try {
+      const { data } = await instance.get(`/photo/list/1`);
+      const randomOfNumber = Math.floor(Math.random() * 5);
+      setRandomPosePhoto(data?.photo_list[randomOfNumber]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getRandomPhoto();
+  }, []);
 
   return (
     <StyledSelectPost>
@@ -45,8 +61,15 @@ const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
           screenshotFormat="image/jpeg"
         />
         <Column alignItems="center" justifyContent="space-between">
-          <Image height={520} src={RecommendPoseImage} alt="Recommend Pose" />
-          <Button icon="NEXT">다른 포즈 추천받기</Button>
+          <img
+            width={300}
+            height={500}
+            src={randomPosePhoto ?? ""}
+            alt="Recommend Pose"
+          />
+          <Button icon="NEXT" onClick={() => getRandomPhoto()}>
+            다른 포즈 추천받기
+          </Button>
         </Column>
       </Row>
     </StyledSelectPost>
