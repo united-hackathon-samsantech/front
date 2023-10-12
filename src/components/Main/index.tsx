@@ -48,21 +48,21 @@ const ImageWrapper = styled.div`
 `;
 
 const RabbitWrapper = styled(ImageWrapper)`
-  width: 605px;
-  height: 605px;
-  top: 265px;
+  width: 505px;
+  height: 505px;
+  top: 225px;
   left: 345px;
 `;
 
 const LogoWrapper = styled(ImageWrapper)`
   position: relative;
-  width: 477px;
-  height: 343px;
+  width: 427px;
+  height: 303px;
 `;
 
 const BackgroundText = styled.h1`
   font-family: "TmonMonsori";
-  font-size: 250px;
+  font-size: 220px;
   font-weight: 900;
   letter-spacing: -0.7813rem;
   -webkit-text-fill-color: transparent;
@@ -75,7 +75,7 @@ const BackgroundText = styled.h1`
 
 const Contents = styled.div`
   position: absolute;
-  top: 359px;
+  top: 259px;
   right: 277px;
   width: 500px;
   display: flex;
@@ -87,8 +87,8 @@ const Contents = styled.div`
 
 const CameraButton = styled.button`
   display: flex;
-  width: 500px;
-  height: 100px;
+  width: 400px;
+  height: 80px;
   justify-content: center;
   align-items: center;
   gap: 28px;
@@ -99,7 +99,7 @@ const CameraButton = styled.button`
 const CameraText = styled.span`
   color: #fff;
   font-family: Cafe24 Ssurround;
-  font-size: 40px;
+  font-size: 35px;
   font-weight: 700;
   letter-spacing: -2px;
   z-index: 10;
