@@ -14,6 +14,7 @@ import { useTranslatedTextStore } from "@/store/translatedText";
 import axios from "axios";
 import { Loading } from "@/components";
 import Text from "../common/Text";
+import { usePhotosValueStore } from "@/store/photos";
 
 const colors = [
   {
@@ -24,13 +25,6 @@ const colors = [
     color: "#ffffff",
     name: "white",
   },
-];
-
-const images = [
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
 ];
 
 interface FinalSelectProps {
@@ -71,6 +65,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
 
   const inputValue = useTranslatedTextStore();
 
+  const pothos = usePhotosValueStore();
   const [selectedFrame, setSelectedFrame] = useState<number>(0);
   const [result, setResult] = useState<string[]>([]);
 
@@ -110,7 +105,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
               `}
             >
               <ImageContainer>
-                {images.map((image) => (
+                {pothos.map((image) => (
                   <Image
                     alt={image}
                     src={image}

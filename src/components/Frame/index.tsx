@@ -52,13 +52,6 @@ const colors = [
   },
 ];
 
-const images = [
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
-];
-
 interface FrameProps {
   nextStep: PhotoBoothStep;
   prevStep: PhotoBoothStep;
