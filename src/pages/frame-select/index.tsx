@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
+import { useState } from "react";
 
 const colors = [
   {
@@ -18,22 +19,42 @@ const colors = [
 
 const frames = [
   "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
+  "https://png.pngtree.com/background/20230610/original/pngtree-landscape-wallpaper-fb-wallpapers-picture-image_3017516.jpg",
+  "https://www.shutterstock.com/ko/blog/wp-content/uploads/sites/17/2020/10/background-ideas-20.jpg",
 ];
 
 const FrameSelectPage = () => {
+  const [selectedFrame, setSelectedFrame] = useState<number>(0);
+
   return (
     <BackGround>
       <Main>
-        <Frame />
+        <Frame
+          css={css`
+            ${selectedFrame < 3
+              ? `background-image: url(${frames[selectedFrame]});`
+              : "background: " + (selectedFrame === 3 ? "black;" : "white;  ")}
+            ${selectedFrame === 4 && "border: solid 1px black"};
+          `}
+        ></Frame>
         <Contents>
           <Title>프레임 선택</Title>
           <Section>
             <SectionTitle>AI 지니가 생성한 프레임</SectionTitle>
             <FrameImages>
-              {frames.map((image) => (
-                <FrameImage>
+              {frames.map((image, i) => (
+                <FrameImage
+                  onClick={() => setSelectedFrame(i)}
+                  css={
+                    i === selectedFrame &&
+                    css`
+                      box-shadow: 15px 15px 13px #666;
+                      position: relative;
+                      bottom: 10px;
+                      transition: ease-in-out 0.3s;
+                    `
+                  }
+                >
                   <Image unoptimized src={image} alt="FrameImage" fill />
                 </FrameImage>
               ))}
@@ -42,8 +63,10 @@ const FrameSelectPage = () => {
           <Section>
             <SectionTitle>일반 프레임</SectionTitle>
             <Colors>
-              {colors.map((color) => (
+              {colors.map((color, i) => (
                 <Color
+                  onClick={() => setSelectedFrame(i + 3)}
+                  isSelect={i + 3 === selectedFrame}
                   css={
                     color.name === "white" &&
                     css`
@@ -83,6 +106,13 @@ const Frame = styled.div`
   width: 473px;
   height: 787px;
   background-color: gray;
+
+  overflow: hidden;
+  position: relative;
+  transition: ease-in-out 0.2s;
+  img {
+    object-fit: cover;
+  }
 `;
 
 const Contents = styled.div`
@@ -154,11 +184,14 @@ const FrameImage = styled.div`
   }
 `;
 
-const Color = styled.button<{ color: string }>`
+const Color = styled.button<{ color: string; isSelect: boolean }>`
   width: 80px;
   height: 80px;
   border-radius: 20px;
   background-color: ${({ color }) => color};
+  ${({ isSelect, color }) =>
+    isSelect &&
+    "box-shadow: 0 0 10px 5px " + (color === "#ffffff" ? "gray" : color)};
 `;
 
 const Colors = styled.div`
