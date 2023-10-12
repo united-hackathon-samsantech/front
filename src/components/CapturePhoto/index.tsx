@@ -36,7 +36,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
       count++;
       if (count >= repeats) {
         clearInterval(intervalId);
-        setPhotoBoothStep("포즈선택");
+        setPhotoBoothStep("프레임선택");
       } else {
         capturePhoto();
         setProgress(30);
@@ -72,7 +72,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
       </StyledHeader>
       <ProgressBar max={3} available={progress} />
       <Row
-        style={{ marginTop: "20px" }}
+        style={{ marginTop: "60px" }}
         justifyContent="center"
         gap="100px"
         width="100%"
@@ -107,7 +107,8 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
 export default CapturePhoto;
 
 const StyledCapturePhoto = styled.div`
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   padding: 16px;
   background-color: #ffffff;
 `;

@@ -11,4 +11,4 @@ export type PhotoBoothStep =
   | "사진촬영"
   | "프레임선택"
   | "최종선택"
-  | "완료";
+  | "인쇄";

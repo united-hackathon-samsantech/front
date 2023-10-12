@@ -1,17 +1,13 @@
 import CapturePhoto from "@/components/CapturePhoto";
-import Complete from "@/components/Complete";
 import Main from "@/components/Main";
 import PostPreference from "@/components/PosePreference";
 import SelectFrame from "@/components/Frame";
 import FinalSelect from "@/components/FinalSelect";
 import SelectPose from "@/components/SelectPose";
 import SelectQuantity from "@/components/SelectQuantity";
-import {
-  usePhotoBoothStepStore,
-  usePhotoBoothStepValueStore,
-} from "@/store/photoBoothStep";
+import { usePhotoBoothStepValueStore } from "@/store/photoBoothStep";
 import { SwitchCase } from "@toss/react";
-import { useState } from "react";
+import Complete from "@/components/Complete";
 
 const Home = () => {
   const photoBoothStep = usePhotoBoothStepValueStore();
@@ -28,10 +24,10 @@ const Home = () => {
         포즈선택: <SelectPose prevStep="포즈제공선택" nextStep="사진촬영" />,
         사진촬영: <CapturePhoto prevStep="포즈선택" nextStep="프레임선택" />,
         프레임선택: <SelectFrame prevStep="사진촬영" nextStep="최종선택" />,
-        최종선택: <FinalSelect prevStep="프레임선택" nextStep="완료" />,
-        완료: <Complete prevStep="완료" nextStep="메인" />,
+        최종선택: <FinalSelect prevStep="프레임선택" nextStep="인쇄" />,
+        인쇄: <Complete />,
       }}
-      defaultComponent={<Main />}
+      defaultComponent={<Main nextStep="수량선택" />}
     />
   );
 };

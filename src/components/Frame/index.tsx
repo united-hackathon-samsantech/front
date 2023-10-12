@@ -6,7 +6,8 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { Vector } from "@/assets";
-import { FunnelStep } from "@/types";
+import { FunnelStep, PhotoBoothStep } from "@/types";
+import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -54,7 +55,10 @@ const images = [
   "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
 ];
 
-interface FrameProps extends FunnelStep {}
+interface FrameProps {
+  nextStep: PhotoBoothStep;
+  prevStep: PhotoBoothStep;
+}
 
 const FramePage = ({ nextStep, prevStep }: FrameProps) => {
   const [location, setLocation] = useState<boolean[]>([
@@ -84,15 +88,17 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
     console.log(sentence);
   };
 
+  const setPhotoBoothStep = useSetPhotoBoothStepStore();
+
   return (
     <BackGround>
       <Header>
-        <MoveBtn>
+        <MoveBtn onClick={() => setPhotoBoothStep(prevStep)}>
           <Vector direction="left" />
           <BtnText>돌아가기</BtnText>
         </MoveBtn>
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-        <MoveBtn>
+        <MoveBtn onClick={() => setPhotoBoothStep(nextStep)}>
           <BtnText>선택 완료</BtnText>
           <Vector direction="right" />
         </MoveBtn>
