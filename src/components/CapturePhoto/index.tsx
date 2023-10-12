@@ -42,7 +42,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
         setProgress(30);
         newRunTimer(30);
       }
-    }, 3000);
+    }, 4000);
   };
 
   const newRunTimer = (repeats: number) => {

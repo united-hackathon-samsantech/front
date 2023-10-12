@@ -6,9 +6,13 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
-import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import {
+  usePhotoBoothStepValueStore,
+  useSetPhotoBoothStepStore,
+} from "@/store/photoBoothStep";
 import Button from "../common/Button";
 import axios from "axios";
+import { usePhotosValueStore } from "@/store/photos";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -104,7 +108,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
   };
 
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
-
+  const photos = usePhotosValueStore();
   return (
     <BackGround>
       <Header>
@@ -125,7 +129,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
       <Main>
         <Frame>
           <ImageContainer>
-            {images.map((image) => (
+            {photos?.map((image) => (
               <Image
                 alt={image}
                 src={image}
