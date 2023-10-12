@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
@@ -14,7 +14,9 @@ import { useTranslatedTextStore } from "@/store/translatedText";
 import axios from "axios";
 import { Loading } from "@/components";
 import Text from "../common/Text";
+import ReactToPrint from "react-to-print";
 import { usePhotosValueStore } from "@/store/photos";
+
 
 const colors = [
   {
@@ -33,6 +35,7 @@ interface FinalSelectProps {
 }
 
 const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
+  const printRef = useRef(null);
   const configuration = new Configuration({
     apiKey: localStorage.getItem("key") as string,
   });
@@ -89,12 +92,19 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
             <Text size="28px" weight={600}>
               프레임을 선택해주세요
             </Text>
-            <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
-              선택 완료
-            </Button>
+            <ReactToPrint
+              trigger={() => (
+                <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+                  선택 완료
+                </Button>
+              )}
+              content={() => printRef.current}
+            />
           </StyledHeader>
           <Main>
+            {/* 이거임 */}
             <Frame
+              ref={printRef}
               css={css`
                 ${selectedFrame < 3
                   ? `background-image: url(${result[selectedFrame]});`
