@@ -123,7 +123,7 @@ export default CapturePhoto;
 const StyledCapturePhoto = styled.div`
   width: 100vw;
   height: 100vh;
-  padding: 16px;
+  padding: 24px;
   background-color: #ffffff;
 `;
 

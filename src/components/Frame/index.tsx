@@ -127,25 +127,19 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
       <Main>
         <Frame>
           <ImageContainer>
-            {pothos?.map((image, i) => (
+            {pothos.map((image, i) => (
               <Image
-                loading="lazy"
                 key={i}
                 alt={image}
                 src={image}
+                loading="eager"
                 width={163}
-                height={171}
+                height={191}
                 unoptimized
               />
             ))}
           </ImageContainer>
-          <Image
-            loading="lazy"
-            src={SmallLogo}
-            alt="logo"
-            width={159}
-            height={85}
-          />
+          <Image src={SmallLogo} alt="logo" width={159} height={85} />
         </Frame>
         <Contents>
           <Title>태그 선택</Title>
@@ -224,7 +218,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 export default FramePage;
 
 const BackGround = styled.div`
-  padding: 16px;
+  padding: 24px;
   width: 100vw;
   height: 100vh;
 `;
@@ -237,20 +231,20 @@ const Main = styled.div`
 
 const Frame = styled.div`
   width: 420px;
-  height: 700px;
+  height: 626px;
   background-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 58px;
-  gap: 22px;
+  padding-top: 32px;
+  gap: 32px;
 
   transition: ease-in-out 0.2s;
 `;
 
 const ImageContainer = styled.div`
-  width: 342px;
-  height: 462px;
+  width: 352px;
+  height: 430px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -261,11 +255,9 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 44px;
-  font-family: "GmarketSansMedium";
 `;
 
 const Title = styled.h1`
-  font-family: "GmarketSansMedium";
   font-size: 40px;
   color: #000;
   font-weight: 700;
@@ -280,7 +272,6 @@ const Section = styled.div`
 
 const SectionTitle = styled.span`
   color: #f76687;
-  font-family: "GmarketSansMedium";
   font-size: 28px;
   font-weight: 500;
   letter-spacing: -1.6px;
@@ -292,7 +283,6 @@ const Tags = styled.div`
 `;
 
 const Tag = styled.button<{ isSelect: boolean }>`
-  font-family: "GmarketSansMedium";
   background-color: white;
   display: flex;
   padding: 8px 40px;

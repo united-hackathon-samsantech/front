@@ -28,13 +28,13 @@ const ContentWrapper = styled.div`
 
 const LoadingText = styled.p`
   @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    font-family: "Cafe24Ssurround";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff")
       format("woff");
     font-weight: normal;
     font-style: normal;
   }
-  font-family: "GmarketSansMedium";
+  font-family: Cafe24 Ssurround;
   color: #000;
   text-align: center;
   font-size: 40px;

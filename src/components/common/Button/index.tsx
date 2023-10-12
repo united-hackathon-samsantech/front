@@ -16,9 +16,15 @@ const Button = ({
   onClick,
   icon = "NONE",
   disabled = false,
+  style,
 }: ButtonProps) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled} icon={icon}>
+    <StyledButton
+      onClick={onClick}
+      disabled={disabled}
+      icon={icon}
+      style={style}
+    >
       {icon === "PREV" && (
         <IconArrowLeft color="#FFFFFF" width={24} height={24} />
       )}
@@ -48,7 +54,7 @@ const StyledButton = styled.button<{ disabled: boolean; icon: IconType }>`
         `;
       default:
         return css`
-          padding: 16px;
+          padding: 24px;
         `;
     }
   }};

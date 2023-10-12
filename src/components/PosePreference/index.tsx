@@ -213,7 +213,7 @@ const BackGround = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
+  padding: 24px;
 `;
 
 const StyledHeader = styled.div`
@@ -237,25 +237,9 @@ const Contents = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 44px;
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-  font-family: "GmarketSansMedium";
 `;
 
 const StyledText = styled.h5`
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
-  font-family: "GmarketSansMedium";
   font-size: 36px;
   color: #000;
   font-weight: 600;
@@ -264,13 +248,6 @@ const StyledText = styled.h5`
 `;
 
 const StartButton = styled.button`
-  @font-face {
-    font-family: "Cafe24Ssurround";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   display: flex;
   align-items: center;
   justify-content: center;
@@ -279,7 +256,6 @@ const StartButton = styled.button`
   height: 8vh;
   letter-spacing: -2px;
   column-gap: 10px;
-  font-family: "Cafe24Ssurround";
   background-color: #f76687;
   color: white;
   border-radius: 100px;

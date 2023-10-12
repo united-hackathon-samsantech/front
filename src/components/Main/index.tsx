@@ -69,7 +69,6 @@ const LogoWrapper = styled(ImageWrapper)`
 `;
 
 const BackgroundText = styled.h1`
-  font-family: "TmonMonsori";
   font-size: 220px;
   font-weight: 900;
   letter-spacing: -0.7813rem;
@@ -106,7 +105,6 @@ const CameraButton = styled.button`
 
 const CameraText = styled.span`
   color: #fff;
-  font-family: Cafe24 Ssurround;
   font-size: 35px;
   font-weight: 700;
   letter-spacing: -2px;

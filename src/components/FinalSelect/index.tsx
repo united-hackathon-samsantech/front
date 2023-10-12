@@ -87,13 +87,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
       {isLoad ? (
         <BackGround>
           <StyledHeader>
-            <Button
-              icon="PREV"
-              onClick={() => {
-                setPhotoBoothStep(prevStep);
-                window.print();
-              }}
-            >
+            <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
               돌아가기
             </Button>
             <Text size="28px" weight={600}>
@@ -128,7 +122,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                     src={image}
                     loading="eager"
                     width={163}
-                    height={221}
+                    height={191}
                     unoptimized
                   />
                 ))}
@@ -155,7 +149,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                         loading="eager"
                         src={image}
                         width={163}
-                        height={221}
+                        height={191}
                         unoptimized
                       />
                     ))}
@@ -232,7 +226,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
 export default FinalSelect;
 
 const BackGround = styled.div`
-  padding: 16px;
+  padding: 24px;
   width: 100vw;
   height: 100vh;
 `;
@@ -251,14 +245,14 @@ const Frame = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 32px;
-  gap: 18px;
+  gap: 32px;
 
   transition: ease-in-out 0.2s;
 `;
 
 const ImageContainer = styled.div`
-  width: 342px;
-  height: 462px;
+  width: 352px;
+  height: 430px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -269,11 +263,9 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 44px;
-  font-family: "GmarketSansMedium";
 `;
 
 const Title = styled.h1`
-  font-family: "GmarketSansMedium";
   font-size: 40px;
   color: #000;
   font-weight: 700;
@@ -283,12 +275,11 @@ const Title = styled.h1`
 const Section = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 `;
 
 const SectionTitle = styled.span`
   color: #f76687;
-  font-family: "GmarketSansMedium";
   font-size: 28px;
   font-weight: 500;
   letter-spacing: -1.6px;
@@ -337,14 +328,13 @@ const Header = styled.div`
 
 const Description = styled.p`
   color: #000;
-  font-size: 38px;
+  font-size: 24px;
   font-weight: 400;
   letter-spacing: -2.4px;
-  font-family: "GmarketSansMedium";
 `;
 
 const ReCreateWrapper = styled.div`
-  margin: 27px 0 60px;
+  margin-top: 15px;
 `;
 
 const StyledHeader = styled.div`

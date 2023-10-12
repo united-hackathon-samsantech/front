@@ -73,7 +73,16 @@ const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
             src={randomPosePhoto ?? ""}
             alt="Recommend Pose"
           />
-          <Button icon="NEXT" onClick={() => getRandomPhoto()}>
+          <Button
+            style={{
+              width: "280px",
+              height: "60px",
+              fontSize: "24px",
+              justifyContent: "center",
+            }}
+            icon="NEXT"
+            onClick={() => getRandomPhoto()}
+          >
             다른 포즈 추천받기
           </Button>
         </Column>
@@ -85,7 +94,7 @@ const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
 export default SelectPose;
 
 const StyledSelectPost = styled.div`
-  padding: 16px;
+  padding: 24px;
   width: 100vw;
   height: 100vh;
 `;

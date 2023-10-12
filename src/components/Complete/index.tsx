@@ -82,11 +82,6 @@ const Contents = styled.div`
 
 const CompleteText = styled.span`
   color: #f76687;
-
-  font-family: "Cafe24Simplehae";
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 300;
   line-height: normal;
   letter-spacing: -4.8px;
 `;
