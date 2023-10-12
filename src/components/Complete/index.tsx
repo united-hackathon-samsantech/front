@@ -3,16 +3,14 @@ import { Animals, Logo } from "@/assets";
 import Image from "next/image";
 import { PhotoBoothStep } from "@/types";
 import Button from "../common/Button";
+import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 
 interface CompleteProps {
   nextStep: PhotoBoothStep;
-  prevStep: PhotoBoothStep;
 }
 
-const Complete: React.FC<CompleteProps> = ({ nextStep, prevStep }) => {
-  function setPhotoBoothStep(prevStep: any): void {
-    throw new Error("Function not implemented.");
-  }
+const Complete: React.FC<CompleteProps> = ({ nextStep }) => {
+  const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   return (
     <BackGround>

@@ -19,13 +19,13 @@ const ProgressBar = ({ available, max }: ProgressBarProps) => {
 export default ProgressBar;
 
 const StyledProgressBar = styled.div`
-  width: 100%;
+  width: 70%;
   height: 30px;
   background-color: #dedede;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.8rem;
-  margin-top: 20px;
+  margin-top: 60px;
   overflow: hidden;
 `;
 

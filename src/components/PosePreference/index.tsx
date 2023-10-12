@@ -105,7 +105,7 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
           돌아가기
         </Button>
         <Text size="28px" weight={600}>
-          촬영 장수를 선택하세요
+          포즈 선택
         </Text>
         <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
           넘어가기
@@ -146,9 +146,8 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
 export default PostPreference;
 
 const BackGround = styled.div`
-  width: 98vw;
-  height: 95vh;
-  margin: 22px 0 0 22px;
+  width: 100vw;
+  height: 100vh;
   background-color: white;
   display: flex;
   flex-direction: column;

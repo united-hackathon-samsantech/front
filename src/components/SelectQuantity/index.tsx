@@ -84,10 +84,11 @@ const StyledRadioButton = styled.button<{ checked: boolean }>`
   align-items: center;
   justify-content: center;
   padding: 8px 20px;
-  width: 150px;
+  width: 250px;
+  height: 100px;
   border-radius: 50px;
   color: #000000;
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 500;
   background-color: ${({ checked }) => (checked ? "#F76687" : "#f2f2f2")};
   color: ${({ checked }) => (checked ? "#ffffff" : "#000000")};

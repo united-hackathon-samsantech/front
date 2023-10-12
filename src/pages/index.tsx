@@ -1,7 +1,7 @@
 import CapturePhoto from "@/components/CapturePhoto";
 import Main from "@/components/Main";
 import PostPreference from "@/components/PosePreference";
-import SelectFrame from "@/components/Frame";
+import Frame from "@/components/Frame";
 import FinalSelect from "@/components/FinalSelect";
 import SelectPose from "@/components/SelectPose";
 import SelectQuantity from "@/components/SelectQuantity";
@@ -23,9 +23,9 @@ const Home = () => {
         ),
         포즈선택: <SelectPose prevStep="포즈제공선택" nextStep="사진촬영" />,
         사진촬영: <CapturePhoto prevStep="포즈선택" nextStep="프레임선택" />,
-        프레임선택: <SelectFrame prevStep="사진촬영" nextStep="최종선택" />,
+        프레임선택: <Frame prevStep="사진촬영" nextStep="최종선택" />,
         최종선택: <FinalSelect prevStep="프레임선택" nextStep="인쇄" />,
-        인쇄: <Complete />,
+        인쇄: <Complete nextStep="메인" />,
       }}
       defaultComponent={<Main nextStep="수량선택" />}
     />

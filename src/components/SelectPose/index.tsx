@@ -33,7 +33,7 @@ const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
         </Button>
       </StyledHeader>
       <Row
-        style={{ marginTop: "60px" }}
+        style={{ marginTop: "100px" }}
         justifyContent="center"
         gap="100px"
         width="100%"

@@ -70,36 +70,38 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
         </Text>
         <Button icon="NEXT">촬영 완료</Button>
       </StyledHeader>
-      <ProgressBar max={3} available={progress} />
-      <Row
-        style={{ marginTop: "60px" }}
-        justifyContent="center"
-        gap="100px"
-        width="100%"
-      >
-        <Webcam
-          ref={webcamRef}
-          width={800}
-          audio={false}
-          screenshotFormat="image/jpeg"
-        />
-        <Column gap="36px" justifyContent="center" alignItems="center">
-          <Column gap="5px">
-            <Text size="24px" weight={700}>
-              AI 지니의 추천 포즈
-            </Text>
-            <Image src={RecommendPoseImage} alt="Recommend Pose" />
+      <Column alignItems="center">
+        <ProgressBar max={3} available={progress} />
+        <Row
+          style={{ marginTop: "60px" }}
+          justifyContent="center"
+          gap="100px"
+          width="100%"
+        >
+          <Webcam
+            ref={webcamRef}
+            width={800}
+            audio={false}
+            screenshotFormat="image/jpeg"
+          />
+          <Column gap="36px" justifyContent="center" alignItems="center">
+            <Column gap="5px">
+              <Text size="24px" weight={700}>
+                AI 지니의 추천 포즈
+              </Text>
+              <Image src={RecommendPoseImage} alt="Recommend Pose" />
+            </Column>
+            <Column gap="5px">
+              <Text size="32px" weight={700}>
+                사진 촬영
+              </Text>
+              <Text color="#F76687" size="96px" weight={700}>
+                {photos.length}/4
+              </Text>
+            </Column>
           </Column>
-          <Column gap="5px">
-            <Text size="32px" weight={700}>
-              사진 촬영
-            </Text>
-            <Text color="#F76687" size="96px" weight={700}>
-              {photos.length}/4
-            </Text>
-          </Column>
-        </Column>
-      </Row>
+        </Row>
+      </Column>
     </StyledCapturePhoto>
   );
 };
