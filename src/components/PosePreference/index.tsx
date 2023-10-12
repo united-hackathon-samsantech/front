@@ -7,7 +7,11 @@ import { PhotoBoothStep } from "@/types";
 import Text from "../common/Text";
 import Button from "../common/Button";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
-import { useSetPoseInfoAtomStateStore } from "@/store/poseInfo";
+import {
+  useSetPoseInfoAtomStateStore,
+  usePoseInfoAtomStateValueStore,
+  usePoseInfoAtomStateStore,
+} from "@/store/poseInfo";
 
 type Gender = "male" | "female" | null;
 
@@ -19,15 +23,17 @@ interface PostPreferenceProps {
 const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // const saveCode = usePoseInfoAtomStateValueStore();
+  // const setPoseInfo = useSetPoseInfoAtomStateStore();
 
-  const setPoseInfo = useSetPoseInfoAtomStateStore();
+  const [code, setCode] = usePoseInfoAtomStateStore();
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
-  const [maxage, setMaxage] = useState<number>(0);
-  const [minage, setMinage] = useState<number>(100);
-  const [gender, setGender] = useState<Gender>(null);
-  const [male, isMale] = useState(0);
-  const [female, isFemale] = useState(0);
+  const [maxage, setMaxage] = useState<number>(50);
+  const [minage, setMinage] = useState<number>(18);
+  const [userLength, setUserLength] = useState(0);
+  const [male, setMale] = useState(0);
+  const [female, setFemale] = useState(0);
   const [poseNumber, setPoseNumber] = useState(0);
 
   useEffect(() => {
@@ -68,11 +74,32 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
     }
   };
 
+  const genderCode = (gender: string) => {
+    console.log(gender);
+    if (gender == "male") {
+      setMale((male) => male + 1);
+    } else if (gender == "female") {
+      console.log("여자임");
+      setFemale((female) => female + 1);
+    }
+  };
+
   const setPoseCode = () => {
+    console.log(
+      `male ${male} female ${female} length ${userLength} code ${code} age ${
+        maxage - minage
+      }`
+    );
     if (male == 1 && female == 1) {
-      setPoseInfo(2);
-    } else if (maxage - minage < 10) {
-      setPoseInfo(5);
+      setCode(4);
+    } else if (userLength > 2 && maxage - minage < 10) {
+      setCode(5);
+    } else if (userLength == 1) {
+      setCode(1);
+    } else if (userLength == 2) {
+      setCode(2);
+    } else if (userLength > 2) {
+      setCode(3);
     }
   };
 
@@ -105,24 +132,24 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
           faceapi.draw.drawDetections(canvasRef.current, resized);
           faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
           faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
+
           if (detections.length > 2) {
-            setPoseInfo(3);
+            console.log("여러명");
+            setUserLength(3);
           } else if (detections.length === 1) {
-            setPoseInfo(1);
-          } else if (detections.length > 1) {
+            console.log("1명");
+            setUserLength(1);
+          } else if (detections.length === 2) {
+            console.log("2명");
+            setUserLength(2);
             detections.forEach((detection) => {
-              if (detection.gender === "male") {
-                isMale((counter) => counter + 1);
-              } else if (detection.gender === "female") {
-                isFemale((counter) => counter + 1);
-              }
               meanAge(detection.age);
-              setPoseInfo(2);
+              genderCode(detection.gender);
             });
           }
         }
       }
-    }, 1000);
+    }, 5000);
   };
 
   return (
@@ -147,7 +174,7 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
           width="940"
           height="650"
           className="appcanvas"
-          style={{ display: "none" }}
+          style={{}}
         />
       </div>
 
@@ -160,7 +187,11 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
             포즈를 추천 받으시겠어요?
             <br />
           </StyledText>
-          <StartButton>
+          <StartButton
+            onClick={() => {
+              setPoseCode();
+            }}
+          >
             <Image src={PoseIcon} alt="" width={50} height={50} />
             포즈 추천 받기
           </StartButton>
