@@ -60,7 +60,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
   };
 
   useEffect(() => {
-    runTimer(4);
+    runTimer(5);
   }, []);
 
   return (
