@@ -105,8 +105,9 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
               `}
             >
               <ImageContainer>
-                {pothos.map((image) => (
+                {pothos.map((image, i) => (
                   <Image
+                    key={i}
                     alt={image}
                     src={image}
                     width={163}
@@ -124,6 +125,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                 <FrameImages>
                   {result.map((image, i) => (
                     <FrameImage
+                      key={i}
                       onClick={() => setSelectedFrame(i)}
                       css={
                         i === selectedFrame &&
@@ -150,6 +152,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                 <Colors>
                   {colors.map((color, i) => (
                     <Color
+                      key={i}
                       onClick={() => setSelectedFrame(i + 3)}
                       isSelect={i + 3 === selectedFrame}
                       css={

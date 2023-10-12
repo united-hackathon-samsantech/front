@@ -127,8 +127,9 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
       <Main>
         <Frame>
           <ImageContainer>
-            {pothos?.map((image) => (
+            {pothos?.map((image, i) => (
               <Image
+                key={i}
                 alt={image}
                 src={image}
                 width={163}
@@ -191,8 +192,9 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
           <Section>
             <SectionTitle>색상</SectionTitle>
             <Colors>
-              {colors.map((color) => (
+              {colors.map((color, i) => (
                 <Color
+                  key={i}
                   onClick={() => setSelectColor(color.name)}
                   isSelect={color.name === selectColor}
                   css={
