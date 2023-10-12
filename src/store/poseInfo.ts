@@ -10,6 +10,9 @@ export const poseInfoAtomState = atom<Number>({
   default: 0,
 });
 
-export const usePoseInfoAtomStateStore = () => useRecoilState(poseInfoAtomState);
-export const usePoseInfoAtomStateValueStore = () => useRecoilValue(poseInfoAtomState);
-export const useSetPoseInfoAtomStateStore = () => useSetRecoilState(poseInfoAtomState);
+export const usePoseInfoAtomStateStore = () =>
+  useRecoilState(poseInfoAtomState);
+export const usePoseInfoAtomStateValueStore = () =>
+  useRecoilValue(poseInfoAtomState);
+export const useSetPoseInfoAtomStateStore = () =>
+  useSetRecoilState(poseInfoAtomState);

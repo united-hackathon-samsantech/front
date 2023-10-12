@@ -31,7 +31,9 @@ const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
 
   const getRandomPhoto = async () => {
     try {
-      const { data } = await instance.get(`/photo/list/${poseInfo ?? 1}`);
+      const { data } = await instance.get(
+        `/photo/list/${poseInfo === 0 ? 1 : poseInfo}`
+      );
       const randomOfNumber = Math.floor(Math.random() * 5);
       setRandomPosePhoto(data?.photo_list[randomOfNumber]);
     } catch (error) {
