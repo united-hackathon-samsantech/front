@@ -10,6 +10,7 @@ import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import { useSetTranslatedTextValueStore } from "@/store/translatedText";
 import Button from "../common/Button";
 import axios from "axios";
+import Text from "../common/Text";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -111,21 +112,17 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 
   return (
     <BackGround>
-      <Header>
+      <StyledHeader>
         <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
           돌아가기
         </Button>
-        <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-        <Button
-          icon="NEXT"
-          onClick={async () => {
-            await submitTags();
-            setPhotoBoothStep(nextStep);
-          }}
-        >
-          선택완료
+        <Text size="28px" weight={600}>
+          프레임 생성을 위해 태그를 선택해주세요
+        </Text>
+        <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+          선택 완료
         </Button>
-      </Header>
+      </StyledHeader>
       <Main>
         <Frame>
           <ImageContainer>
@@ -319,12 +316,10 @@ const Colors = styled.div`
   gap: 12px;
 `;
 
-const Header = styled.div`
-  width: calc(100vw - 100px);
+const StyledHeader = styled.div`
   display: flex;
-  padding: 45px 46px 32px 46px;
+  align-items: center;
   justify-content: space-between;
-  margin-left: 20px;
 `;
 
 const Description = styled.p`
