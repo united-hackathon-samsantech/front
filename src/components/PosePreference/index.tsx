@@ -24,7 +24,7 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // const saveCode = usePoseInfoAtomStateValueStore();
-  // const setPoseInfo = useSetPoseInfoAtomStateStore();
+  const setPoseInfo = useSetPoseInfoAtomStateStore();
 
   const [code, setCode] = usePoseInfoAtomStateStore();
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
@@ -84,23 +84,26 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
     }
   };
 
-  const setPoseCode = () => {
+  const setPoseCode = async () => {
+    let num = 0;
+    if (male == 1 && female == 1) {
+      num = 4;
+    } else if (userLength > 2 && maxage - minage < 10) {
+      num = 5;
+    } else if (userLength == 1) {
+      num = 1;
+    } else if (userLength == 2) {
+      num = 2;
+    } else if (userLength > 2) {
+      num = 3;
+    }
+    await setPoseInfo(num);
     console.log(
-      `male ${male} female ${female} length ${userLength} code ${code} age ${
+      `male ${male} female ${female} length ${userLength} code ${num} age ${
         maxage - minage
       }`
     );
-    if (male == 1 && female == 1) {
-      setCode(4);
-    } else if (userLength > 2 && maxage - minage < 10) {
-      setCode(5);
-    } else if (userLength == 1) {
-      setCode(1);
-    } else if (userLength == 2) {
-      setCode(2);
-    } else if (userLength > 2) {
-      setCode(3);
-    }
+    setPhotoBoothStep(nextStep);
   };
 
   const faceMyDetect = () => {
