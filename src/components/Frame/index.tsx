@@ -5,10 +5,10 @@ import Image from "next/image";
 import { css } from "@emotion/react";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
-import { Vector } from "@/assets";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import Button from "../common/Button";
+import { translate } from "@/hooks";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -86,7 +86,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
     const emotionList = emotinoTags.filter((v, i) => emotion[i]).join("과 ");
     const concept = isPicture ? "사진" : "일러스트";
     const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
-    console.log(sentence);
+    translate(sentence);
   };
 
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
@@ -98,7 +98,13 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
           돌아가기
         </Button>
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-        <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+        <Button
+          icon="NEXT"
+          onClick={() => {
+            setPhotoBoothStep(nextStep);
+            submitTags();
+          }}
+        >
           선택완료
         </Button>
       </Header>
