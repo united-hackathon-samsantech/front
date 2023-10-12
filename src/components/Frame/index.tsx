@@ -119,7 +119,13 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
         <Text size="28px" weight={600}>
           프레임 생성을 위해 태그를 선택해주세요
         </Text>
-        <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+        <Button
+          icon="NEXT"
+          onClick={async () => {
+            await submitTags();
+            setPhotoBoothStep(nextStep);
+          }}
+        >
           선택 완료
         </Button>
       </StyledHeader>
@@ -214,14 +220,13 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 export default FramePage;
 
 const BackGround = styled.div`
-  width: 1671px;
-  height: 1000px;
-  margin: 22px 0 0 22px;
-  background-color: white;
+  padding: 16px;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Main = styled.div`
-  padding-left: 289px;
+  padding: 70px 0 0 289px;
   display: flex;
   gap: 74px;
 `;

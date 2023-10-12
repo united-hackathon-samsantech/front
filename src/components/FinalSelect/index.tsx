@@ -98,15 +98,6 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
               선택 완료
             </Button>
           </StyledHeader>
-          <Header>
-            <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
-              돌아가기
-            </Button>
-            <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-            <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
-              인쇄하기
-            </Button>
-          </Header>
           <Main>
             <Frame
               css={css`
@@ -191,14 +182,13 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
 export default FinalSelect;
 
 const BackGround = styled.div`
-  width: 1671px;
-  height: 1000px;
-  margin: 22px 0 0 22px;
-  background-color: white;
+  padding: 16px;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const Main = styled.div`
-  padding-left: 289px;
+  padding: 70px 0 0 289px;
   display: flex;
   gap: 74px;
 `;
