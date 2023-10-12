@@ -93,6 +93,12 @@ const FrameSelectPage = () => {
                 </FrameImage>
               ))}
             </FrameImages>
+            <ReCreateWrapper>
+              <MoveBtn>
+                <BtnText>재생성 하기</BtnText>
+                <Vector direction="right" />
+              </MoveBtn>
+            </ReCreateWrapper>
           </Section>
           <Section>
             <SectionTitle>일반 프레임</SectionTitle>
@@ -250,4 +256,8 @@ const Description = styled.p`
   font-weight: 400;
   letter-spacing: -2.4px;
   font-family: "GmarketSansMedium";
+`;
+
+const ReCreateWrapper = styled.div`
+  margin: 27px 0 60px;
 `;
