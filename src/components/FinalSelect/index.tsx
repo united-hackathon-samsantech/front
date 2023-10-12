@@ -7,7 +7,8 @@ import { Logo } from "@/components";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { Vector } from "@/assets";
-import { FunnelStep } from "@/types";
+import { FunnelStep, PhotoBoothStep } from "@/types";
+import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 
 const colors = [
   {
@@ -33,20 +34,24 @@ const frames = [
   "https://toktok.io/wp-content/uploads/iphone-13-official-wallpaper.jpg",
 ];
 
-interface FinalSelectProps extends FunnelStep {}
+interface FinalSelectProps {
+  nextStep: PhotoBoothStep;
+  prevStep: PhotoBoothStep;
+}
 
 const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
   const [selectedFrame, setSelectedFrame] = useState<number>(0);
+  const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   return (
     <BackGround>
       <Header>
-        <MoveBtn>
+        <MoveBtn onClick={() => setPhotoBoothStep(prevStep)}>
           <Vector direction="left" />
           <BtnText>돌아가기</BtnText>
         </MoveBtn>
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-        <MoveBtn>
+        <MoveBtn onClick={() => setPhotoBoothStep(nextStep)}>
           <BtnText>인쇄 하기</BtnText>
           <Vector direction="right" />
         </MoveBtn>

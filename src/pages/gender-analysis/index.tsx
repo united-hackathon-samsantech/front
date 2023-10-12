@@ -3,20 +3,16 @@ import Image from "next/image";
 import { css } from "@emotion/react";
 import { Logo } from "@/components";
 import { PhotoRabbit, PoseBtn, PoseIcon } from "@/assets";
-// import * as canvas from "canvas";
 import * as faceapi from "face-api.js";
 import React, { useState, useRef, useEffect } from "react";
-
-// const { Canvas, Images, ImageData } = canvas;
-// faceapi.env.monkeyPatch({ Canvas, Image, ImageData });
 
 type Gender = "male" | "female" | null;
 
 const GenderAnalysis = () => {
-  const videoRef = useRef();
-  const canvasRef = useRef();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState<number>(0);
   const [gender, setGender] = useState<Gender>(null);
 
   useEffect(() => {
@@ -28,64 +24,68 @@ const GenderAnalysis = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((currentStream) => {
-        videoRef.current.srcObject = currentStream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = currentStream;
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const loadModels = () => {
-    Promise.all([
-      // THIS FOR FACE DETECT AND LOAD FROM YOU PUBLIC/MODELS DIRECTORY
+  const loadModels = async () => {
+    await Promise.all([
       faceapi.nets.tinyFaceDetector.loadFromUri("/model"),
       faceapi.nets.faceLandmark68Net.loadFromUri("/model"),
       faceapi.nets.faceRecognitionNet.loadFromUri("/model"),
       faceapi.nets.faceExpressionNet.loadFromUri("/model"),
       faceapi.nets.ageGenderNet.loadFromUri("/model"),
-    ]).then(() => {
-      faceMyDetect();
-    });
+    ]);
+
+    faceMyDetect();
   };
-
-  const genderClassification = () => {};
-
-  const AgeClassification = () => {};
 
   const faceMyDetect = () => {
     setInterval(async () => {
-      const detections = await faceapi
-        .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-        .withFaceLandmarks()
-        .withFaceExpressions()
-        .withAgeAndGender();
+      if (videoRef.current) {
+        const detections = await faceapi
+          .detectAllFaces(
+            videoRef.current,
+            new faceapi.TinyFaceDetectorOptions()
+          )
+          .withFaceLandmarks()
+          .withFaceExpressions()
+          .withAgeAndGender();
 
-      canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(
-        videoRef.current
-      );
-      faceapi.matchDimensions(canvasRef.current, {
-        width: 940,
-        height: 650,
-      });
+        if (canvasRef.current) {
+          const canvas = faceapi.createCanvasFromMedia(videoRef.current);
+          canvasRef.current.innerHTML = ""; // Clear previous content if any
+          canvasRef.current.appendChild(canvas);
+          faceapi.matchDimensions(canvasRef.current, {
+            width: 940,
+            height: 650,
+          });
 
-      const resized = faceapi.resizeResults(detections, {
-        width: 940,
-        height: 650,
-      });
+          const resized = faceapi.resizeResults(detections, {
+            width: 940,
+            height: 650,
+          });
 
-      faceapi.draw.drawDetections(canvasRef.current, resized);
-      faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
-      faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
+          faceapi.draw.drawDetections(canvasRef.current, resized);
+          faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
+          faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
 
-      if (detections.length > 1) {
-        console.log(detections.length, "명입니다");
-        detections.map((i) => {
-          console.log(i);
-        });
-      } else if (detections.length == 1) {
-        setAge(detections[0].age);
-        setGender(detections[0].gender);
-        console.log(detections[0].gender);
+          if (detections.length > 1) {
+            console.log(`${detections.length}명입니다`);
+            detections.forEach((detection) => {
+              console.log(detection);
+            });
+          } else if (detections.length === 1) {
+            setAge(detections[0].age || 0);
+            setGender(detections[0].gender || null);
+            console.log(detections[0].gender);
+          }
+        }
       }
     }, 1000);
   };
@@ -101,12 +101,12 @@ const GenderAnalysis = () => {
           width="940"
           height="650"
           className="appcanvas"
-          display="none"
+          style={{ display: "none" }}
         />
       </div>
       <Main>
         <Contents>
-          <Image src={PhotoRabbit} alt="" width={300} height={300}></Image>
+          <Image src={PhotoRabbit} alt="" width={300} height={300} />
           <Text>
             AI 지니가 인생사진을 위해 포즈를 준비했어요
             <br />
@@ -198,6 +198,3 @@ const Button = styled.button`
 
   font-size: 2em;
 `;
-function faceMyDetect() {
-  throw new Error("Function not implemented.");
-}

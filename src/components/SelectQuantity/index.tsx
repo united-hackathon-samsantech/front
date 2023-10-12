@@ -1,23 +1,32 @@
-import { FunnelStep } from "@/types";
+import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { PhotoBoothStep } from "@/types";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import Button from "../common/Button";
 import Row from "../common/Flex/Row";
 import Text from "../common/Text";
 
-interface SelectQuantityProps extends FunnelStep {}
+interface SelectQuantityProps {
+  nextStep: PhotoBoothStep;
+  prevStep: PhotoBoothStep;
+}
 
-const SelectQuantity = ({}: SelectQuantityProps) => {
+const SelectQuantity = ({ nextStep, prevStep }: SelectQuantityProps) => {
   const [quantity, setQuantity] = useState("1");
+  const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   return (
     <StyledSelectQuantity>
       <StyledHeader>
-        <Button icon="PREV">돌아가기</Button>
+        <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
+          돌아가기
+        </Button>
         <Text size="28px" weight={600}>
           촬영 장수를 선택하세요
         </Text>
-        <Button icon="NEXT">선택 완료</Button>
+        <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+          선택 완료
+        </Button>
       </StyledHeader>
       <Row
         width="100%"
