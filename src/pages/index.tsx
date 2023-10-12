@@ -1,13 +1,6 @@
-import CapturePhoto from "@/components/CapturePhoto";
-import Main from "@/components/Main";
-import PostPreference from "@/components/PosePreference";
-import Frame from "@/components/Frame";
-import FinalSelect from "@/components/FinalSelect";
-import SelectPose from "@/components/SelectPose";
-import SelectQuantity from "@/components/SelectQuantity";
 import { usePhotoBoothStepValueStore } from "@/store/photoBoothStep";
 import { SwitchCase } from "@toss/react";
-import Complete from "@/components/Complete";
+import * as C from "@/components";
 
 const Home = () => {
   const photoBoothStep = usePhotoBoothStepValueStore();
@@ -16,18 +9,18 @@ const Home = () => {
     <SwitchCase
       value={photoBoothStep}
       caseBy={{
-        메인: <Main nextStep="수량선택" />,
-        수량선택: <SelectQuantity prevStep="메인" nextStep="포즈제공선택" />,
+        메인: <C.Main nextStep="수량선택" />,
+        수량선택: <C.SelectQuantity prevStep="메인" nextStep="포즈제공선택" />,
         포즈제공선택: (
-          <PostPreference prevStep="수량선택" nextStep="포즈선택" />
+          <C.PosePreference prevStep="수량선택" nextStep="포즈선택" />
         ),
-        포즈선택: <SelectPose prevStep="포즈제공선택" nextStep="사진촬영" />,
-        사진촬영: <CapturePhoto prevStep="포즈선택" nextStep="프레임선택" />,
-        프레임선택: <Frame prevStep="사진촬영" nextStep="최종선택" />,
-        최종선택: <FinalSelect prevStep="프레임선택" nextStep="인쇄" />,
-        인쇄: <Complete nextStep="메인" />,
+        포즈선택: <C.SelectPose prevStep="포즈제공선택" nextStep="사진촬영" />,
+        사진촬영: <C.CapturePhoto prevStep="포즈선택" nextStep="프레임선택" />,
+        프레임선택: <C.Frame prevStep="사진촬영" nextStep="최종선택" />,
+        최종선택: <C.FinalSelect prevStep="프레임선택" nextStep="인쇄" />,
+        인쇄: <C.Complete nextStep="메인" />,
       }}
-      defaultComponent={<Main nextStep="수량선택" />}
+      defaultComponent={<C.Main nextStep="수량선택" />}
     />
   );
 };
