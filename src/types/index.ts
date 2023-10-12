@@ -10,4 +10,5 @@ export type PhotoBoothStep =
   | "포즈선택"
   | "사진촬영"
   | "프레임선택"
+  | "최종선택"
   | "완료";

@@ -7,6 +7,7 @@ import { Logo } from "@/components";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { Vector } from "@/assets";
+import { FunnelStep } from "@/types";
 
 const colors = [
   {
@@ -32,7 +33,9 @@ const frames = [
   "https://toktok.io/wp-content/uploads/iphone-13-official-wallpaper.jpg",
 ];
 
-const FrameSelectPage = () => {
+interface FinalSelectProps extends FunnelStep {}
+
+const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
   const [selectedFrame, setSelectedFrame] = useState<number>(0);
 
   return (
@@ -125,7 +128,7 @@ const FrameSelectPage = () => {
   );
 };
 
-export default FrameSelectPage;
+export default FinalSelect;
 
 const BackGround = styled.div`
   width: 1871px;

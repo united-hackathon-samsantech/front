@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { Vector } from "@/assets";
+import { FunnelStep } from "@/types";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -53,7 +54,9 @@ const images = [
   "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
 ];
 
-const FramePage = () => {
+interface FrameProps extends FunnelStep {}
+
+const FramePage = ({ nextStep, prevStep }: FrameProps) => {
   const [location, setLocation] = useState<boolean[]>([
     false,
     false,
