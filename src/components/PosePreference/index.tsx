@@ -7,6 +7,7 @@ import { PhotoBoothStep } from "@/types";
 import Text from "../common/Text";
 import Button from "../common/Button";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { useSetPoseInfoAtomStateStore } from "@/store/poseInfo";
 
 type Gender = "male" | "female" | null;
 
@@ -16,12 +17,17 @@ interface PostPreferenceProps {
 }
 
 const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
-  const setPhotoBoothStep = useSetPhotoBoothStepStore();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const [age, setAge] = useState<number>(0);
+  const setPoseInfo = useSetPoseInfoAtomStateStore();
+
+  const [maxage, setMaxage] = useState<number>(0);
+  const [minage, setMinage] = useState<number>(100);
   const [gender, setGender] = useState<Gender>(null);
+  const [male, isMale] = useState(0);
+  const [female, isFemale] = useState(0);
+  const [poseNumber, setPoseNumber] = useState(0);
 
   useEffect(() => {
     startVideo();
@@ -53,6 +59,22 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
     faceMyDetect();
   };
 
+  const meanAge = (age: number) => {
+    if (age < minage) {
+      setMinage(age);
+    } else if (age > maxage) {
+      setMaxage(age);
+    }
+  };
+
+  const setPoseCode = () => {
+    if (male == 1 && female == 1) {
+      setPoseInfo(2);
+    } else if (maxage - minage < 10) {
+      setPoseInfo(5);
+    }
+  };
+
   const faceMyDetect = () => {
     setInterval(async () => {
       if (videoRef.current) {
@@ -82,16 +104,20 @@ const PostPreference = ({ nextStep, prevStep }: PostPreferenceProps) => {
           faceapi.draw.drawDetections(canvasRef.current, resized);
           faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
           faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
-
-          if (detections.length > 1) {
-            console.log(`${detections.length}명입니다`);
-            detections.forEach((detection) => {
-              console.log(detection);
-            });
+          if (detections.length > 2) {
+            setPoseInfo(3);
           } else if (detections.length === 1) {
-            setAge(detections[0].age || 0);
-            setGender(detections[0].gender || null);
-            console.log(detections[0].gender);
+            setPoseInfo(1);
+          } else if (detections.length > 1) {
+            detections.forEach((detection) => {
+              if (detection.gender === "male") {
+                isMale((counter) => counter + 1);
+              } else if (detection.gender === "female") {
+                isFemale((counter) => counter + 1);
+              }
+              meanAge(detection.age);
+              setPoseInfo(2);
+            });
           }
         }
       }
