@@ -87,7 +87,13 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
       {isLoad ? (
         <BackGround>
           <StyledHeader>
-            <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
+            <Button
+              icon="PREV"
+              onClick={() => {
+                setPhotoBoothStep(prevStep);
+                window.print();
+              }}
+            >
               돌아가기
             </Button>
             <Text size="28px" weight={600}>
