@@ -81,9 +81,9 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 
   const [selectColor, setSelectColor] = useState<string>("");
 
-  const translate = (text: string) => {
+  const translate = async (text: string) => {
     try {
-      let res = axios
+      await axios
         .post("/api", {
           text: text,
         })
