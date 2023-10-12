@@ -8,7 +8,7 @@ import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import Button from "../common/Button";
-import { translate } from "@/hooks";
+import axios from "axios";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -81,9 +81,23 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 
   const [selectColor, setSelectColor] = useState<string>("");
 
+  const translate = (text: string) => {
+    try {
+      let res = axios
+        .post("/api", {
+          text: text,
+        })
+        .then(({ data }) => {
+          console.log(data.message.result.translatedText);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const submitTags = () => {
-    const locationList = locationTags.filter((v, i) => location[i]).join(", ");
-    const emotionList = emotinoTags.filter((v, i) => emotion[i]).join("과 ");
+    const locationList = locationTags.filter((_, i) => location[i]).join(", ");
+    const emotionList = emotinoTags.filter((_, i) => emotion[i]).join("과 ");
     const concept = isPicture ? "사진" : "일러스트";
     const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
     translate(sentence);
