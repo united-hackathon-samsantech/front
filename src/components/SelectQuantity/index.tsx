@@ -1,7 +1,7 @@
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { usePhotoQuantityStore } from "@/store/photoQuantity";
 import { PhotoBoothStep } from "@/types";
 import styled from "@emotion/styled";
-import { useState } from "react";
 import Button from "../common/Button";
 import Row from "../common/Flex/Row";
 import Text from "../common/Text";
@@ -12,7 +12,7 @@ interface SelectQuantityProps {
 }
 
 const SelectQuantity = ({ nextStep, prevStep }: SelectQuantityProps) => {
-  const [quantity, setQuantity] = useState("1");
+  const [photoQuantity, setPhotoQuantity] = usePhotoQuantityStore();
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   return (
@@ -36,26 +36,26 @@ const SelectQuantity = ({ nextStep, prevStep }: SelectQuantityProps) => {
         gap="60px"
       >
         <StyledRadioButton
-          onClick={() => setQuantity("1")}
-          checked={quantity === "1"}
+          onClick={() => setPhotoQuantity(1)}
+          checked={photoQuantity === 1}
         >
           1장
         </StyledRadioButton>
         <StyledRadioButton
-          onClick={() => setQuantity("2")}
-          checked={quantity === "2"}
+          onClick={() => setPhotoQuantity(2)}
+          checked={photoQuantity === 2}
         >
           2장
         </StyledRadioButton>
         <StyledRadioButton
-          onClick={() => setQuantity("3")}
-          checked={quantity === "3"}
+          onClick={() => setPhotoQuantity(3)}
+          checked={photoQuantity === 3}
         >
           3장
         </StyledRadioButton>
         <StyledRadioButton
-          onClick={() => setQuantity("4")}
-          checked={quantity === "4"}
+          onClick={() => setPhotoQuantity(4)}
+          checked={photoQuantity === 4}
         >
           4장
         </StyledRadioButton>
