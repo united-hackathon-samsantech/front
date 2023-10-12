@@ -8,6 +8,7 @@ import { SmallLogo } from "@/assets/frame";
 import { Vector } from "@/assets";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import Button from "../common/Button";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -93,15 +94,13 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
   return (
     <BackGround>
       <Header>
-        <MoveBtn onClick={() => setPhotoBoothStep(prevStep)}>
-          <Vector direction="left" />
-          <BtnText>돌아가기</BtnText>
-        </MoveBtn>
+        <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
+          돌아가기
+        </Button>
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
-        <MoveBtn onClick={() => setPhotoBoothStep(nextStep)}>
-          <BtnText>선택 완료</BtnText>
-          <Vector direction="right" />
-        </MoveBtn>
+        <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+          선택완료
+        </Button>
       </Header>
       <Main>
         <Frame>
@@ -110,8 +109,8 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
               <Image
                 alt={image}
                 src={image}
-                width={186}
-                height={251}
+                width={163}
+                height={221}
                 unoptimized
               />
             ))}
@@ -194,34 +193,34 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 export default FramePage;
 
 const BackGround = styled.div`
-  width: 1871px;
+  width: 1671px;
   height: 1000px;
   margin: 22px 0 0 22px;
   background-color: white;
 `;
 
 const Main = styled.div`
-  padding-left: 389px;
+  padding-left: 289px;
   display: flex;
   gap: 74px;
 `;
 
 const Frame = styled.div`
-  width: 473px;
-  height: 787px;
+  width: 420px;
+  height: 700px;
   background-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 88px;
-  gap: 32px;
+  padding-top: 58px;
+  gap: 22px;
 
   transition: ease-in-out 0.2s;
 `;
 
 const ImageContainer = styled.div`
-  width: 392px;
-  height: 532px;
+  width: 342px;
+  height: 462px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -237,7 +236,7 @@ const Contents = styled.div`
 
 const Title = styled.h1`
   font-family: "GmarketSansMedium";
-  font-size: 48px;
+  font-size: 40px;
   color: #000;
   font-weight: 700;
   letter-spacing: -2.4px;
@@ -252,21 +251,21 @@ const Section = styled.div`
 const SectionTitle = styled.span`
   color: #f76687;
   font-family: "GmarketSansMedium";
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 500;
   letter-spacing: -1.6px;
 `;
 
 const Tags = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const Tag = styled.button<{ isSelect: boolean }>`
   font-family: "GmarketSansMedium";
   background-color: white;
   display: flex;
-  padding: 12px 47px;
+  padding: 8px 40px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -275,14 +274,14 @@ const Tag = styled.button<{ isSelect: boolean }>`
   transition: ease-in-out 0.1s;
 
   color: ${({ isSelect }) => (isSelect ? "#ffffff" : "#676767")};
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 500;
   letter-spacing: -1.6px;
 `;
 
 const Color = styled.button<{ color: string; isSelect: boolean }>`
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 20px;
   background-color: ${({ color }) => color};
   transition: ease-in-out 0.1s;
@@ -299,31 +298,14 @@ const Colors = styled.div`
 const Header = styled.div`
   width: calc(100vw - 100px);
   display: flex;
-  padding: 45px 46px 72px 46px;
+  padding: 45px 46px 32px 46px;
   justify-content: space-between;
-`;
-
-const MoveBtn = styled.button`
-  display: inline-flex;
-  padding: 10px 24px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  gap: 12px;
-  background: #f76687;
-`;
-
-const BtnText = styled.span`
-  color: #fff;
-  font-family: "Cafe24Simplehae";
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -1.6px;
+  margin-left: 20px;
 `;
 
 const Description = styled.p`
   color: #000;
-  font-size: 48px;
+  font-size: 38px;
   font-weight: 400;
   letter-spacing: -2.4px;
   font-family: "GmarketSansMedium";
