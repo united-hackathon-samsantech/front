@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { useState } from "react";
+import { SmallLogo } from "@/assets/frame";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -44,6 +45,13 @@ const colors = [
   },
 ];
 
+const images = [
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+];
+
 const FramePage = () => {
   const [location, setLocation] = useState<boolean[]>([
     false,
@@ -75,7 +83,20 @@ const FramePage = () => {
   return (
     <BackGround>
       <Main>
-        <Frame />
+        <Frame>
+          <ImageContainer>
+            {images.map((image) => (
+              <Image
+                alt={image}
+                src={image}
+                width={186}
+                height={251}
+                unoptimized
+              />
+            ))}
+          </ImageContainer>
+          <Image src={SmallLogo} alt="logo" width={159} height={85} />
+        </Frame>
         <Contents>
           <Title>태그 선택</Title>
           <Section>
@@ -169,7 +190,23 @@ const Main = styled.div`
 const Frame = styled.div`
   width: 473px;
   height: 787px;
-  background-color: gray;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 88px;
+  gap: 32px;
+
+  transition: ease-in-out 0.2s;
+`;
+
+const ImageContainer = styled.div`
+  width: 392px;
+  height: 532px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px 16px;
 `;
 
 const Contents = styled.div`

@@ -127,19 +127,14 @@ const Main = styled.div`
 const Frame = styled.div`
   width: 473px;
   height: 787px;
-  background-color: gray;
+  background-color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 88px;
   gap: 32px;
 
-  overflow: hidden;
-  position: relative;
   transition: ease-in-out 0.2s;
-  img {
-    object-fit: cover;
-  }
 `;
 
 const ImageContainer = styled.div`
