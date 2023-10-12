@@ -7,7 +7,7 @@ interface ProgressBarProps {
 }
 
 const ProgressBar = ({ available, max }: ProgressBarProps) => {
-  const progressWidth = (available * 100) / max;
+  const progressWidth = (available * 10) / max;
 
   return (
     <StyledProgressBar>

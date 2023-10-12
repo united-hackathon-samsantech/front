@@ -20,7 +20,7 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
   const webcamRef = useRef<Webcam>(null);
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
   const [photos, setPhotos] = usePhotosStore();
-  const [progress, setProgress] = useState(3);
+  const [progress, setProgress] = useState(30);
 
   const capturePhoto = () => {
     const photo = webcamRef.current?.getScreenshot();
@@ -39,8 +39,22 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
         setPhotoBoothStep("포즈선택");
       } else {
         capturePhoto();
+        setProgress(30);
+        newRunTimer(30);
       }
     }, 3000);
+  };
+
+  const newRunTimer = (repeats: number) => {
+    let count = 0;
+    const intervalId = setInterval(() => {
+      count++;
+      if (count >= repeats) {
+        clearInterval(intervalId);
+      } else {
+        setProgress((prev) => prev - 1);
+      }
+    }, 100);
   };
 
   useEffect(() => {
