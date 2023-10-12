@@ -13,6 +13,7 @@ import { Configuration, OpenAIApi } from "openai";
 import { useTranslatedTextStore } from "@/store/translatedText";
 import axios from "axios";
 import { Loading } from "@/components";
+import Text from "../common/Text";
 
 const colors = [
   {
@@ -86,6 +87,17 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
     <>
       {isLoad ? (
         <BackGround>
+          <StyledHeader>
+            <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
+              돌아가기
+            </Button>
+            <Text size="28px" weight={600}>
+              프레임을 선택해주세요
+            </Text>
+            <Button icon="NEXT" onClick={() => setPhotoBoothStep(nextStep)}>
+              선택 완료
+            </Button>
+          </StyledHeader>
           <Header>
             <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
               돌아가기
@@ -293,4 +305,10 @@ const Description = styled.p`
 
 const ReCreateWrapper = styled.div`
   margin: 27px 0 60px;
+`;
+
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
