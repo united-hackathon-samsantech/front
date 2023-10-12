@@ -226,7 +226,7 @@ const BackGround = styled.div`
 const Main = styled.div`
   margin-top: 70px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 140px;
 `;
