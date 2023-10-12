@@ -11,9 +11,9 @@ const IntroPage = () => {
         Remem <br />
         ber
       </BackgroundText>
-      <AnimalsWrapper>
+      <RabbitWrapper>
         <Image src={Animals} fill alt="" />
-      </AnimalsWrapper>
+      </RabbitWrapper>
       <Contents>
         <LogoWrapper>
           <Image src={Logo} fill alt="" />
@@ -29,27 +29,27 @@ const IntroPage = () => {
 
 export default IntroPage;
 
-const ImageWrapper = styled.div`
-  position: absolute;
-  overflow: hidden;
+// const ImageWrapper = styled.div`
+//   position: absolute;
+//   overflow: hidden;
 
-  img {
-    object-fit: cover;
-  }
-`;
+//   img {
+//     object-fit: cover;
+//   }
+// `;
 
-const AnimalsWrapper = styled(ImageWrapper)`
-  width: 605px;
-  height: 605px;
-  top: 265px;
-  left: 345px;
-`;
+// const RabbitWrapper = styled(ImageWrapper)`
+//   width: 605px;
+//   height: 605px;
+//   top: 265px;
+//   left: 345px;
+// `;
 
-const LogoWrapper = styled(ImageWrapper)`
-  position: relative;
-  width: 477px;
-  height: 343px;
-`;
+// const LogoWrapper = styled(ImageWrapper)`
+//   position: relative;
+//   width: 477px;
+//   height: 343px;
+// `;
 
 const BackgroundText = styled.h1`
   font-family: "TmonMonsori";

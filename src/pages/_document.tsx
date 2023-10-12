@@ -8,9 +8,6 @@ const Document = () => {
     <Html lang="en">
       <Head />
       <Body>
-        <RectangleWrapper>
-          <Image src={Rectangle} fill alt="" />
-        </RectangleWrapper>
         <Main />
         <NextScript />
       </Body>
@@ -19,18 +16,6 @@ const Document = () => {
 };
 
 export default Document;
-
-const RectangleWrapper = styled.div`
-  width: 1028px;
-  height: 1080px;
-  position: absolute;
-  overflow: hidden;
-  z-index: -1;
-
-  img {
-    object-fit: cover;
-  }
-`;
 
 const Body = styled.body`
   overflow-y: hidden;

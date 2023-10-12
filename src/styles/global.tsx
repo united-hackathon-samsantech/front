@@ -26,8 +26,7 @@ const globalStyle = css`
   }
 
   * {
-    font-family: Pretendard;
-    line-height: 120%;
+    line-height: 140%;
     box-sizing: border-box;
   }
 
