@@ -326,11 +326,3 @@ const StyledHeader = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
-const Description = styled.p`
-  color: #000;
-  font-size: 38px;
-  font-weight: 400;
-  letter-spacing: -2.4px;
-  font-family: "GmarketSansMedium";
-`;
