@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { useState } from "react";
+import { SmallLogo } from "@/assets/frame";
+import { Vector } from "@/assets";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -44,6 +46,13 @@ const colors = [
   },
 ];
 
+const images = [
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+  "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
+];
+
 const FramePage = () => {
   const [location, setLocation] = useState<boolean[]>([
     false,
@@ -74,8 +83,32 @@ const FramePage = () => {
 
   return (
     <BackGround>
+      <Header>
+        <MoveBtn>
+          <Vector direction="left" />
+          <BtnText>돌아가기</BtnText>
+        </MoveBtn>
+        <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
+        <MoveBtn>
+          <BtnText>선택 완료</BtnText>
+          <Vector direction="right" />
+        </MoveBtn>
+      </Header>
       <Main>
-        <Frame />
+        <Frame>
+          <ImageContainer>
+            {images.map((image) => (
+              <Image
+                alt={image}
+                src={image}
+                width={186}
+                height={251}
+                unoptimized
+              />
+            ))}
+          </ImageContainer>
+          <Image src={SmallLogo} alt="logo" width={159} height={85} />
+        </Frame>
         <Contents>
           <Title>태그 선택</Title>
           <Section>
@@ -156,12 +189,10 @@ const BackGround = styled.div`
   height: 1000px;
   margin: 22px 0 0 22px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  padding-left: 389px;
 `;
 
 const Main = styled.div`
+  padding-left: 389px;
   display: flex;
   gap: 74px;
 `;
@@ -169,7 +200,23 @@ const Main = styled.div`
 const Frame = styled.div`
   width: 473px;
   height: 787px;
-  background-color: gray;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 88px;
+  gap: 32px;
+
+  transition: ease-in-out 0.2s;
+`;
+
+const ImageContainer = styled.div`
+  width: 392px;
+  height: 532px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px 16px;
 `;
 
 const Contents = styled.div`
@@ -238,4 +285,37 @@ const Color = styled.button<{ color: string; isSelect: boolean }>`
 const Colors = styled.div`
   display: flex;
   gap: 12px;
+`;
+
+const Header = styled.div`
+  width: calc(100vw - 100px);
+  display: flex;
+  padding: 45px 46px 72px 46px;
+  justify-content: space-between;
+`;
+
+const MoveBtn = styled.button`
+  display: inline-flex;
+  padding: 10px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  gap: 12px;
+  background: #f76687;
+`;
+
+const BtnText = styled.span`
+  color: #fff;
+  font-family: "Cafe24Simplehae";
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1.6px;
+`;
+
+const Description = styled.p`
+  color: #000;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -2.4px;
+  font-family: "GmarketSansMedium";
 `;
