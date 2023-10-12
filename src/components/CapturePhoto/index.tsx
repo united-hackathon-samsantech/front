@@ -1,4 +1,4 @@
-import { FunnelStep } from "@/types";
+import { FunnelStep, PhotoBoothStep } from "@/types";
 
 import { usePhotosStore } from "@/store/photos";
 import styled from "@emotion/styled";
@@ -15,13 +15,15 @@ import ProgressBar from "./ProgressBar";
 import { clear } from "console";
 import { useRandomPhotoValueStore } from "@/store/photoRandom";
 
-interface CapturePhotoProps extends FunnelStep {}
+interface CapturePhotoProps {
+  prevStep: PhotoBoothStep;
+}
 
-const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
+const CapturePhoto = ({ prevStep }: CapturePhotoProps) => {
   const webcamRef = useRef<Webcam>(null);
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
   const [photos, setPhotos] = usePhotosStore();
-  const [progress, setProgress] = useState(30);
+  const [progress, setProgress] = useState(60);
   const randomPosePhoto = useRandomPhotoValueStore();
 
   const capturePhoto = () => {
@@ -41,10 +43,10 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
         setPhotoBoothStep("프레임선택");
       } else {
         capturePhoto();
-        setProgress(30);
-        newRunTimer(30);
+        setProgress(60);
+        newRunTimer(60);
       }
-    }, 3000);
+    }, 6000);
   };
 
   const newRunTimer = (repeats: number) => {
@@ -66,23 +68,26 @@ const CapturePhoto = ({ nextStep, prevStep }: CapturePhotoProps) => {
   return (
     <StyledCapturePhoto>
       <StyledHeader>
-        <Button icon="PREV">돌아가기</Button>
+        <Button icon="PREV" onClick={() => setPhotoBoothStep(prevStep)}>
+          돌아가기
+        </Button>
         <Text size="28px" weight={600}>
           사진 촬영을 시작합니다
         </Text>
         <div />
       </StyledHeader>
       <Column alignItems="center">
-        <ProgressBar max={3} available={progress} />
+        <ProgressBar max={6} available={progress} />
         <Row
           style={{ marginTop: "60px" }}
           justifyContent="center"
+          alignItems="flex-start"
           gap="100px"
           width="100%"
         >
           <Webcam
             ref={webcamRef}
-            width={800}
+            width={730}
             audio={false}
             screenshotFormat="image/jpeg"
           />

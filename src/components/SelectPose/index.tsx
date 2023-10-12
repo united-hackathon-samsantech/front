@@ -5,17 +5,12 @@ import Webcam from "react-webcam";
 import Button from "../common/Button";
 import Column from "../common/Flex/Column";
 import Row from "../common/Flex/Row";
-import Image from "next/image";
 import Text from "../common/Text";
-import RecommendPoseImage from "../../assets/images/recommend-pose.png";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import { instance } from "@/apis/core";
 import { useRandomPhotoStore } from "@/store/photoRandom";
-import {
-  useSetPoseInfoAtomStateStore,
-  usePoseInfoAtomStateValueStore,
-  usePoseInfoAtomStateStore,
-} from "@/store/poseInfo";
+import { usePoseInfoAtomStateValueStore } from "@/store/poseInfo";
+import Image from "next/image";
 
 interface SelectPoseProps {
   prevStep: PhotoBoothStep;
@@ -61,16 +56,17 @@ const SelectPose = ({ nextStep, prevStep }: SelectPoseProps) => {
       <Row
         style={{ marginTop: "100px" }}
         justifyContent="center"
+        alignItems="flex-start"
         gap="100px"
         width="100%"
       >
         <Webcam
           ref={webcamRef}
-          width={800}
+          width={730}
           audio={false}
           screenshotFormat="image/jpeg"
         />
-        <Column alignItems="center" justifyContent="space-between">
+        <Column gap="24px" alignItems="center" justifyContent="space-between">
           <img
             width={300}
             height={500}

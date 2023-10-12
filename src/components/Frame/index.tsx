@@ -133,7 +133,7 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
                 alt={image}
                 src={image}
                 width={163}
-                height={221}
+                height={171}
                 unoptimized
               />
             ))}
