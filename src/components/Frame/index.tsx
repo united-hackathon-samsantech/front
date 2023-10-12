@@ -7,6 +7,7 @@ import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
 import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
+import { useSetTranslatedTextValueStore } from "@/store/translatedText";
 import Button from "../common/Button";
 import axios from "axios";
 
@@ -81,6 +82,8 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
 
   const [selectColor, setSelectColor] = useState<string>("");
 
+  const useSetText = useSetTranslatedTextValueStore();
+
   const translate = async (text: string) => {
     try {
       await axios
@@ -88,7 +91,8 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
           text: text,
         })
         .then(({ data }) => {
-          console.log(data.message.result.translatedText);
+          const textValue = data.message.result.translatedText;
+          useSetText(textValue);
         });
     } catch (error) {
       console.error(error);

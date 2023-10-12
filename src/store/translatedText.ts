@@ -10,6 +10,7 @@ const translatedText = atom<string>({
   default: "",
 });
 
-export const usePhotosStore = () => useRecoilState(translatedText);
-export const usePhotosValueStore = () => useRecoilValue(translatedText);
-export const useSetPhotosStore = () => useSetRecoilState(translatedText);
+export const useTranslatedTextStore = () => useRecoilState(translatedText);
+export const useTranslatedTextValueStore = () => useRecoilValue(translatedText);
+export const useSetTranslatedTextValueStore = () =>
+  useSetRecoilState(translatedText);
