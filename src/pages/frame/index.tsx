@@ -5,6 +5,7 @@ import Image from "next/image";
 import { css } from "@emotion/react";
 import { useState } from "react";
 import { SmallLogo } from "@/assets/frame";
+import { Vector } from "@/assets";
 
 const locationTags = ["바다", "산", "놀이공원", "시내"];
 
@@ -82,6 +83,11 @@ const FramePage = () => {
 
   return (
     <BackGround>
+      <Header>
+        <MoveBtn>
+          <Vector />
+        </MoveBtn>
+      </Header>
       <Main>
         <Frame>
           <ImageContainer>
@@ -275,4 +281,27 @@ const Color = styled.button<{ color: string; isSelect: boolean }>`
 const Colors = styled.div`
   display: flex;
   gap: 12px;
+`;
+
+const Header = styled.div`
+  width: calc(100vw - 100px);
+  display: flex;
+`;
+
+const MoveBtn = styled.button`
+  display: inline-flex;
+  padding: 6px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  gap: 12px;
+  background: #f76687;
+`;
+
+const BtnText = styled.span`
+  color: #fff;
+  font-family: "Cafe24Simplehae";
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1.6px;
 `;
