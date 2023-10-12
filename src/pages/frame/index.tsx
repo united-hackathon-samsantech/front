@@ -85,7 +85,12 @@ const FramePage = () => {
     <BackGround>
       <Header>
         <MoveBtn>
-          <Vector />
+          <Vector direction="left" />
+          <BtnText>돌아가기</BtnText>
+        </MoveBtn>
+        <MoveBtn>
+          <Vector direction="right" />
+          <BtnText>인쇄하기</BtnText>
         </MoveBtn>
       </Header>
       <Main>
@@ -183,12 +188,11 @@ const BackGround = styled.div`
   height: 1000px;
   margin: 22px 0 0 22px;
   background-color: white;
-  display: flex;
-  align-items: center;
-  padding-left: 389px;
 `;
 
 const Main = styled.div`
+  align-items: center;
+  padding-left: 389px;
   display: flex;
   gap: 74px;
 `;
