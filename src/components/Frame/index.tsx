@@ -99,12 +99,12 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
     }
   };
 
-  const submitTags = () => {
+  const submitTags = async () => {
     const locationList = locationTags.filter((_, i) => location[i]).join(", ");
     const emotionList = emotinoTags.filter((_, i) => emotion[i]).join("과 ");
     const concept = isPicture ? "사진" : "일러스트";
     const sentence = `${locationList}의 배경과 ${emotionList}의 감정을 담은 ${selectColor}색 테마의 ${concept}`;
-    translate(sentence);
+    await translate(sentence);
   };
 
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
@@ -118,9 +118,9 @@ const FramePage = ({ nextStep, prevStep }: FrameProps) => {
         <Description>프레임 생성을 위해 태그를 선택해주세요</Description>
         <Button
           icon="NEXT"
-          onClick={() => {
+          onClick={async () => {
+            await submitTags();
             setPhotoBoothStep(nextStep);
-            submitTags();
           }}
         >
           선택완료
