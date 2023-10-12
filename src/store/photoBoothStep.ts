@@ -8,7 +8,7 @@ import {
 
 const photoBoothStepAtomState = atom<PhotoBoothStep>({
   key: "photoBoothStep",
-  default: "사진촬영",
+  default: "수량선택",
 });
 
 export const usePhotoBoothStepStore = () =>
