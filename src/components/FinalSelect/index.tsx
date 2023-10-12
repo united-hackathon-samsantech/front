@@ -47,7 +47,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
     const res = await openai.createImage({
       prompt: inputValue[0],
       n: 3,
-      size: "512x512",
+      size: "256x256",
     });
     let imageArr = [];
     imageArr = res.data.data.map((v) => v.url ?? "");
@@ -126,6 +126,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                     key={i}
                     alt={image}
                     src={image}
+                    loading="eager"
                     width={163}
                     height={221}
                     unoptimized
@@ -151,6 +152,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                       <Image
                         key={i}
                         alt={image}
+                        loading="eager"
                         src={image}
                         width={163}
                         height={221}
@@ -181,7 +183,13 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
                         `
                       }
                     >
-                      <Image unoptimized src={image} alt="FrameImage" fill />
+                      <Image
+                        unoptimized
+                        loading="eager"
+                        src={image}
+                        alt="FrameImage"
+                        fill
+                      />
                     </FrameImage>
                   ))}
                 </FrameImages>
