@@ -10,6 +10,7 @@ import { FunnelStep, PhotoBoothStep } from "@/types";
 import { useSetPhotoBoothStepStore } from "@/store/photoBoothStep";
 import Button from "../common/Button";
 import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
 
 const colors = [
   {
@@ -29,12 +30,6 @@ const images = [
   "https://img.hankyung.com/photo/202109/BF.27474984.1-1200x.jpg",
 ];
 
-const frames = [
-  "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=11288788&filePath=L2Rpc2sxL25ld2RhdGEvMjAxNS8wMi9DTFM2OS9OVVJJXzAwMV8wMjc0X251cmltZWRpYV8yMDE1MTIwMw==&thumbAt=Y&thumbSe=b_tbumb&wrtTy=10006",
-  "https://png.pngtree.com/background/20210709/original/pngtree-spray-powder-glare-colorful-background-picture-image_623477.jpg",
-  "https://toktok.io/wp-content/uploads/iphone-13-official-wallpaper.jpg",
-];
-
 interface FinalSelectProps {
   nextStep: PhotoBoothStep;
   prevStep: PhotoBoothStep;
@@ -42,21 +37,16 @@ interface FinalSelectProps {
 
 const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: localStorage.getItem("key") as string,
   });
 
   const openai = new OpenAIApi(configuration);
-
-  const [selectedFrame, setSelectedFrame] = useState<number>(0);
-  const [result, setResult] = useState<string[]>([]);
-
-  const setPhotoBoothStep = useSetPhotoBoothStepStore();
 
   const generateImage = async () => {
     const res = await openai.createImage({
       prompt:
         "An illustration with a blue-themed design that represents a joyful mood at an amusement park",
-      n: 5,
+      n: 3,
       size: "512x512",
     });
     let imageArr = [];
@@ -65,7 +55,24 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
     setResult(imageArr);
   };
 
+  const getAPIKey = async () => {
+    const { data } = await axios.post(
+      "http://api.h4u.kro.kr:7070/api/openai-key",
+      {
+        teamKey: "ea0f36c1-57a8-4ab1-bd1f-b458b4001ab9",
+      }
+    );
+
+    localStorage.setItem("key", data.token);
+  };
+
+  const [selectedFrame, setSelectedFrame] = useState<number>(0);
+  const [result, setResult] = useState<string[]>([]);
+
+  const setPhotoBoothStep = useSetPhotoBoothStepStore();
+
   useEffect(() => {
+    getAPIKey();
     generateImage();
   }, []);
 
@@ -84,7 +91,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
         <Frame
           css={css`
             ${selectedFrame < 3
-              ? `background-image: url(${frames[selectedFrame]});`
+              ? `background-image: url(${result[selectedFrame]});`
               : "background: " + (selectedFrame === 3 ? "black;" : "white;  ")}
             background-size: cover;
             ${selectedFrame === 4 && "border: solid 1px black"};
@@ -108,7 +115,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
           <Section>
             <SectionTitle>AI 지니가 생성한 프레임</SectionTitle>
             <FrameImages>
-              {frames.map((image, i) => (
+              {result.map((image, i) => (
                 <FrameImage
                   onClick={() => setSelectedFrame(i)}
                   css={
@@ -126,7 +133,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
               ))}
             </FrameImages>
             <ReCreateWrapper>
-              <Button icon="NEXT" onClick={() => {}}>
+              <Button icon="NEXT" onClick={generateImage}>
                 재생성하기
               </Button>
             </ReCreateWrapper>
