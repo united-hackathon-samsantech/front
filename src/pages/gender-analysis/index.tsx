@@ -141,7 +141,7 @@ const GenderAnalysis = () => {
           <Text>
             AI 지니가 인생사진을 위해 포즈를 준비했어요
             <br />
-            포즈를 추천 받으시겠어요?
+            포즈를 추천 받으시겠어요? 
             <br />
           </Text>
           <Button
