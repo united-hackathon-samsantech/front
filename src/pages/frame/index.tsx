@@ -176,24 +176,10 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   gap: 44px;
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   font-family: "GmarketSansMedium";
 `;
 
 const Title = styled.h1`
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   font-family: "GmarketSansMedium";
   font-size: 48px;
   color: #000;
@@ -209,13 +195,6 @@ const Section = styled.div`
 
 const SectionTitle = styled.span`
   color: #f76687;
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   font-family: "GmarketSansMedium";
   font-size: 32px;
   font-weight: 500;
@@ -228,13 +207,6 @@ const Tags = styled.div`
 `;
 
 const Tag = styled.button<{ isSelect: boolean }>`
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   font-family: "GmarketSansMedium";
   background-color: white;
   display: flex;
