@@ -17,14 +17,50 @@ import { useRandomPhotoValueStore } from "@/store/photoRandom";
 
 interface CapturePhotoProps {
   prevStep: PhotoBoothStep;
+  nextStep: PhotoBoothStep;
 }
 
-const CapturePhoto = ({ prevStep }: CapturePhotoProps) => {
+const CapturePhoto = ({ prevStep, nextStep }: CapturePhotoProps) => {
   const webcamRef = useRef<Webcam>(null);
   const setPhotoBoothStep = useSetPhotoBoothStepStore();
   const [photos, setPhotos] = usePhotosStore();
   const [progress, setProgress] = useState(60);
   const randomPosePhoto = useRandomPhotoValueStore();
+  const [startNumber, setStartNumber] = useState(0);
+
+  useEffect(() => {
+    let captureTimeout: NodeJS.Timeout;
+
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.code === "Space") {
+        clearTimeout(captureTimeout);
+
+        captureTimeout = setTimeout(() => {
+          setStartNumber(1);
+        }, 1000);
+
+        captureTimeout = setTimeout(() => {
+          setStartNumber(2);
+        }, 2000);
+
+        captureTimeout = setTimeout(() => {
+          setStartNumber(3);
+        }, 3000);
+
+        captureTimeout = setTimeout(() => {
+          setStartNumber(4);
+          capturePhoto();
+        }, 4000);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+      clearTimeout(captureTimeout);
+    };
+  }, []);
 
   const capturePhoto = () => {
     const photo = webcamRef.current?.getScreenshot();
@@ -34,36 +70,11 @@ const CapturePhoto = ({ prevStep }: CapturePhotoProps) => {
     }
   };
 
-  const runTimer = (repeats: number) => {
-    let count = 0;
-    const intervalId = setInterval(() => {
-      count++;
-      if (count >= repeats) {
-        clearInterval(intervalId);
-        setPhotoBoothStep("프레임선택");
-      } else {
-        capturePhoto();
-        setProgress(60);
-        newRunTimer(60);
-      }
-    }, 6000);
-  };
-
-  const newRunTimer = (repeats: number) => {
-    let count = 0;
-    const intervalId = setInterval(() => {
-      count++;
-      if (count >= repeats) {
-        clearInterval(intervalId);
-      } else {
-        setProgress((prev) => prev - 1);
-      }
-    }, 100);
-  };
-
   useEffect(() => {
-    runTimer(5);
-  }, []);
+    if (photos.length === 4) {
+      setPhotoBoothStep("프레임선택");
+    }
+  }, [photos.length]);
 
   return (
     <StyledCapturePhoto>
@@ -72,14 +83,38 @@ const CapturePhoto = ({ prevStep }: CapturePhotoProps) => {
           돌아가기
         </Button>
         <Text size="28px" weight={600}>
-          사진 촬영을 시작합니다
+          스페이스바를 누르면 촬영이 돼요
         </Text>
-        <div />
+        <Button
+          icon="NEXT"
+          onClick={() => setPhotoBoothStep(nextStep)}
+          disabled={photos.length !== 4}
+        >
+          촬영완료
+        </Button>
       </StyledHeader>
+      <Row justifyContent="center" alignItems="center" gap="64px">
+        {startNumber === 4 ? (
+          <Text size="87px" color="#F76687">
+            찰칵 ✨
+          </Text>
+        ) : (
+          <>
+            <Text size="87px" color={startNumber === 1 ? "#F76687" : "#E2E2E2"}>
+              1
+            </Text>
+            <Text size="87px" color={startNumber === 2 ? "#F76687" : "#E2E2E2"}>
+              2
+            </Text>
+            <Text size="87px" color={startNumber === 3 ? "#F76687" : "#E2E2E2"}>
+              3
+            </Text>
+          </>
+        )}
+      </Row>
       <Column alignItems="center">
-        <ProgressBar max={6} available={progress} />
         <Row
-          style={{ marginTop: "60px" }}
+          style={{ marginTop: "45px" }}
           justifyContent="center"
           alignItems="flex-start"
           gap="100px"
@@ -131,4 +166,5 @@ const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 40px;
 `;
