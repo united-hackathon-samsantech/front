@@ -47,7 +47,7 @@ const FinalSelect = ({ nextStep, prevStep }: FinalSelectProps) => {
     const res = await openai.createImage({
       prompt: inputValue[0],
       n: 3,
-      size: "256x256",
+      size: "512x512",
     });
     let imageArr = [];
     imageArr = res.data.data.map((v) => v.url ?? "");
